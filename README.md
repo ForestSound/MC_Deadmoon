@@ -12,10 +12,23 @@ le serveur, et Gordorak y maintient la liste des mods.
 
 ## Guide à distribuer
 
-`docs/Guide-Minecraft-Deadmoon.pdf` — 3 pages, prêt à envoyer à la guilde : installation pas à pas
-**sous Windows avec Prism Launcher**, en partant d'un PC où rien n'est installé, puis connexion au
-serveur et dépannage. Texte seul, ni illustration ni capture d'écran.
+`docs/Guide-Minecraft-Deadmoon.pdf` — 2 pages, prêt à envoyer à la guilde : installation **sous
+Windows avec Prism Launcher** en 5 étapes, puis connexion au serveur et dépannage. Liens cliquables,
+texte seul.
 Régénération : `.venv/bin/python docs/guide.py` (nécessite reportlab).
+
+### Instance Prism préconfigurée
+
+`dist/Minecraft-Deadmoon-Prism.zip` (89 Ko) — à importer dans Prism par simple glisser-déposer.
+Contient `mmc-pack.json` (1.21.1 + NeoForge 21.1.257), `instance.cfg` (mémoire 6 Go et commande
+pre-lancement déjà réglées) et le bootstrap packwiz. **Les mods ne sont pas dedans** : ils se
+téléchargent au premier lancement, ce qui préserve la mise à jour automatique.
+
+Lien direct :
+`https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/dist/Minecraft-Deadmoon-Prism.zip`
+
+Après toute modification du pack, ce zip n'a pas besoin d'être régénéré — il ne contient que la
+configuration, jamais la liste des mods.
 
 Lien direct :
 `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/docs/Guide-Minecraft-Deadmoon.pdf`
