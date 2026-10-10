@@ -59,6 +59,16 @@ def st(font="Fira", size=10, leading=None, color=INK, space=0, align=TA_LEFT):
                           leading=leading or size * 1.45, textColor=color,
                           spaceAfter=space, alignment=align)
 
+LINK = "#B5651D"
+
+def A(url, label=None):
+    """Lien cliquable dans un Paragraph : coloré et souligné."""
+    return f'<a href="{url}"><font color="{LINK}"><u>{label or url}</u></font></a>'
+
+def link_area(c, url, x, y, w, h):
+    """Rend une zone déjà dessinée cliquable (texte tracé au canvas)."""
+    c.linkURL(url, (x, y, x + w, y + h), relative=0, thickness=0)
+
 def para(c, text, style, x, y, w):
     """Dessine un paragraphe dont y est le haut. Renvoie le y du bas."""
     p = Paragraph(text, style)
@@ -104,8 +114,11 @@ def step(c, n, title, body, x, y, w):
         yb = para(c, body, st("Fira", 9.6, 14.2, MUTED), tx, yb - 2.2 * mm, w - (d + 4.5 * mm))
     return yb
 
-def mono_box(c, text, x, y, w, size=9.4, pad=3.4 * mm):
-    p = Paragraph(text, st("Mono", size, size * 1.5, INK))
+def mono_box(c, text, x, y, w, size=9.4, pad=3.4 * mm, url=None):
+    # wordWrap CJK : coupe n'importe où, seul moyen de replier une URL sans espaces
+    style = ParagraphStyle("m", fontName="Mono", fontSize=size, leading=size * 1.5,
+                           textColor=INK, wordWrap="CJK")
+    p = Paragraph(text, style)
     _, th = p.wrapOn(c, w - 2 * pad, H)
     bh = th + 2 * pad
     c.setFillColor(HexColor("#EDEAE1")); c.setStrokeColor(RULE); c.setLineWidth(0.8)
@@ -113,6 +126,8 @@ def mono_box(c, text, x, y, w, size=9.4, pad=3.4 * mm):
     c.setStrokeColor(COPPER); c.setLineWidth(2.2)
     c.line(x + 0.9, y - bh + 2.2 * mm, x + 0.9, y - 2.2 * mm)
     p.drawOn(c, x + pad, y - bh + pad)
+    if url:
+        link_area(c, url, x, y - bh, w, bh)
     return y - bh
 
 def note_box(c, title, lines, x, y, w, accent=COPPER):
@@ -138,6 +153,10 @@ def note_box(c, title, lines, x, y, w, accent=COPPER):
 
 # ---------------------------------------------------------------- contenu
 URL_PACK = "https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/pack/pack.toml"
+URL_PRISM = "https://prismlauncher.org/download/windows/"
+URL_JAR = ("https://github.com/packwiz/packwiz-installer-bootstrap/releases/"
+           "latest/download/packwiz-installer-bootstrap.jar")
+URL_DEPOT = "https://github.com/ForestSound/MC_Deadmoon"
 
 def first_header(c):
     c.setFillColor(PAPER); c.rect(0, 0, W, H, stroke=0, fill=1)
@@ -173,7 +192,7 @@ def page_1(c):
 
     y -= 9 * mm
     y = step(c, 1, "Installe Prism Launcher",
-             "Sur <font name='Mono' size='9'>prismlauncher.org/download</font>, section <b>Windows</b>, "
+             "Sur " + A(URL_PRISM, "prismlauncher.org/download") + ", section <b>Windows</b>, "
              "prends le fichier <b>Installer (.exe)</b> et lance-le : installation classique, tout "
              "suivant. Si Windows affiche « Windows a protégé votre ordinateur », clique sur "
              "<b>Informations complémentaires</b> puis <b>Exécuter quand même</b>.", M, y, COL)
@@ -196,10 +215,19 @@ def page_2(c):
     y -= 8 * mm
 
     y = step(c, 4, "Dépose le fichier de mise à jour",
-             "Télécharge <font name='Mono' size='8.8'>packwiz-installer-bootstrap.jar</font> "
-             "(Gordorak t’envoie le lien). Dans Prism : <b>clic droit sur l’instance → Dossier</b>, "
-             "entre dans le sous-dossier <font name='Mono' size='8.8'>.minecraft</font>, et colle le "
-             "fichier dedans.", M, y, COL)
+             "Clique sur le lien ci-dessous pour télécharger "
+             "<font name='Mono' size='8.8'>packwiz-installer-bootstrap.jar</font> (environ 20 Ko). "
+             "Puis, dans Prism : <b>clic droit sur l’instance → Dossier</b>, entre dans le "
+             "sous-dossier <font name='Mono' size='8.8'>.minecraft</font>, et colle le fichier dedans.",
+             M, y, COL)
+    y -= 3.5 * mm
+    y = mono_box(c, A(URL_JAR, "github.com/packwiz/packwiz-installer-bootstrap/releases/latest"
+                               "/download/packwiz-installer-bootstrap.jar"),
+                 M, y, COL, size=8.2, url=URL_JAR)
+    y -= 3 * mm
+    y = para(c, "Ce fichier ne change jamais : tu le déposes une fois et tu l’oublies. "
+                "C’est lui qui ira chercher les mises à jour à chaque lancement.",
+             st("Fira-It", 9.2, 13, MUTED), M, y, COL)
     y -= 6 * mm
     y = step(c, 5, "Colle la commande",
              "Clic droit sur l’instance → <b>Modifier → Paramètres</b> → coche <b>Commandes "
@@ -207,7 +235,8 @@ def page_2(c):
              "<b>Copie-la depuis le message de Gordorak</b> : une faute de frappe et rien ne marche.",
              M, y, COL)
     y -= 3.5 * mm
-    y = mono_box(c, '"$INST_JAVA" -jar packwiz-installer-bootstrap.jar<br/>' + URL_PACK, M, y, COL, size=8.4)
+    y = mono_box(c, '"$INST_JAVA" -jar packwiz-installer-bootstrap.jar<br/>' + URL_PACK,
+                 M, y, COL, size=8.4)
 
     y -= 7 * mm
     y = step(c, 6, "Règle la mémoire",
@@ -221,8 +250,8 @@ def page_2(c):
 
     y -= 9 * mm
     note_box(c, "LES PROCHAINES FOIS", [
-        "Double-clic sur l’instance, et c’est tout : les mods ajoutés ou mis à jour par Gordorak "
-        "se téléchargent automatiquement avant le lancement.",
+        "Double-clic sur l’instance, et c’est tout : à chaque lancement, Prism va lire la liste des "
+        "mods publiée par Gordorak et télécharge uniquement ce qui a changé. Quelques secondes.",
     ], M, y, COL)
     c.showPage()
 
@@ -273,7 +302,10 @@ def page_3(c):
         y -= 2.8 * mm
 
     c.setFont("Fira", 8.4); c.setFillColor(MUTED)
-    c.drawCentredString(W / 2, 20 * mm, "Des questions ? Demande à Gordorak.  ·  github.com/ForestSound/MC_Deadmoon")
+    txt = "Des questions ? Demande à Gordorak.  ·  github.com/ForestSound/MC_Deadmoon"
+    c.drawCentredString(W / 2, 20 * mm, txt)
+    tw = pdfmetrics.stringWidth(txt, "Fira", 8.4)
+    link_area(c, URL_DEPOT, W / 2 - tw / 2, 19 * mm, tw, 5 * mm)
     c.showPage()
 
 def build(path):

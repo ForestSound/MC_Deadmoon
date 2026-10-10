@@ -38,6 +38,12 @@ Une seule configuration à faire, puis plus personne n'a à y penser :
 
 5. Lancer. Les 45 mods se téléchargent ; aux lancements suivants, seuls les changements sont récupérés.
 
+**Ce que fait ce fichier `.jar`** : il se dépose une seule fois et ne change jamais. À chaque lancement,
+il télécharge (et met à jour tout seul) `packwiz-installer.jar` à côté de lui, puis lit le `pack.toml`
+servi par GitHub. GitHub n'héberge que la **liste** des mods — une centaine de Ko de fichiers `.toml`.
+Les jars des mods, eux, viennent de Modrinth et CurseForge, et seuls ceux dont l'empreinte a changé
+sont retéléchargés.
+
 Mémoire conseillée : **6 Go minimum, 8 Go confortable**.
 
 ### Variante : launcher CurseForge (Windows)
