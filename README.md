@@ -21,15 +21,27 @@ Le pack s'installe **et se met à jour tout seul** à chaque lancement. Une seul
    "$INST_JAVA" -jar packwiz-installer-bootstrap.jar URL_DU_PACK
    ```
 
-5. Lancer. Les ~44 mods se téléchargent ; aux lancements suivants seuls les changements sont récupérés.
+5. Lancer. Les 45 mods se téléchargent ; aux lancements suivants seuls les changements sont récupérés.
 
-Alternative sans auto-update : importer le fichier `.mrpack` (Prism : *Ajouter une instance → Importer*).
+### Variante : launcher CurseForge (Windows)
+
+Le launcher CurseForge **ne sait pas lire un pack packwiz** : pas de commande pre-launch, donc pas de
+mise à jour automatique. Il faut leur envoyer un zip, à refaire à chaque modification du pack.
+
+1. Tu génères le zip : `cd pack && packwiz curseforge export` → `build/Fourneaux-et-Donjons-1.0.0-curseforge.zip` (191 Mo)
+2. Elles l'installent : CurseForge App → *Minecraft* → *Créer un profil personnalisé* → **Importer** → choisir le zip
+
+Sur les 45 mods, seuls 2 sont référencés par identifiant CurseForge ; les 43 autres sont **embarqués comme
+jars** dans le zip (d'où les 191 Mo). C'est fonctionnel, mais chaque mise à jour = un transfert de 191 Mo
+et une réinstallation manuelle pour tout le monde.
+
+Autre variante : le fichier `.mrpack` (2 Mo), importable dans Prism ou l'app Modrinth — mais pas dans le launcher CurseForge.
 
 ## Pour le serveur (OMGServ)
 
 1. Panel OMGServ → type de serveur **NeoForge**, version **1.21.1** (build **21.1.257**).
 2. FTP : vider le dossier `mods/` existant, puis envoyer le contenu de **`build/server-mods.zip`**
-   (il se décompresse en `mods/` à la racine du serveur) — 40 jars, 215 Mo décompressés.
+   (il se décompresse en `mods/` à la racine du serveur) — 41 jars, 216 Mo décompressés.
    Les 4 mods purement client (EMI, Jade, Xaero's Minimap & World Map) en sont exclus : inutiles côté serveur.
 3. RAM conseillée : **6 Go minimum, 8 Go confortable** (Create + Terralith + 10 mods de structures).
 4. Premier démarrage long (génération des registres). Si le panel propose `--add-modules` ou des flags Java,
@@ -68,8 +80,8 @@ Farmer's Delight · Expanded Delight · Ube's Delight · Brewin' and Chewin' · 
 [Let's Do] Farm & Charm *(socle requis en 1.21.1)* · Vinery · Bakery · Brewery · Candlelight
 
 ### Structures & monde
-Les 10 **YUNG's Better** (Dungeons, Mineshafts, Strongholds, Desert Temples, Witch Huts, Ocean Monuments,
-Nether Fortresses, End Island, Jungle Temples) + YUNG's API · When Dungeons Arise · Dungeons and Taverns · Terralith
+Terralith **2.6.2** *(version NeoForge dédiée)* · les 10 **YUNG's Better** (Dungeons, Mineshafts, Strongholds, Desert Temples, Witch Huts, Ocean Monuments,
+Nether Fortresses, End Island, Jungle Temples) + YUNG's API · When Dungeons Arise · Dungeons and Taverns
 
 ### Exploration & confort
 Explorer's Compass · Nature's Compass · Waystones · Xaero's Minimap & World Map *(client)*
@@ -81,4 +93,4 @@ Mowzie's Mobs · L_Ender's Cataclysm
 EMI *(client)* · Jade *(client)*
 
 ### Dépendances tirées automatiquement
-Architectury API · Balm · Curios API · EpheroLib · Geckolib · Lionfish-API
+Architectury API · Balm · Curios API · EpheroLib · Geckolib · Lionfish-API · Lithostitched *(Terralith 2.6.2)*

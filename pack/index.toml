@@ -131,6 +131,11 @@ hash = "64acab1580ca6edd8b1dd185e914aeee7aa551a88a7cd7f0f9370a82aaadfef6"
 metafile = true
 
 [[files]]
+file = "mods/lithostitched.pw.toml"
+hash = "0294264654da6777cfbbbd24ffa6dd1d082768fa7ae28b36b76f78261f53fce9"
+metafile = true
+
+[[files]]
 file = "mods/mowzies-mobs.pw.toml"
 hash = "02aa4dcb8fa24cffcd2182c66683c2a476a95abf53002373f953a49737a587e3"
 metafile = true
@@ -142,7 +147,7 @@ metafile = true
 
 [[files]]
 file = "mods/terralith.pw.toml"
-hash = "da7ee99189ad35aac094919fe33cac647d98533b23c228f10d4811f08989e2b8"
+hash = "81c5c05f9ed4c07b9f027ff6c421939bb04e476075091f135d34aaa05af1f950"
 metafile = true
 
 [[files]]
