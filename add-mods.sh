@@ -45,7 +45,7 @@ MODRINTH=(
   # --- Créatures ---
   mowzies-mobs
   l_enders-cataclysm
-  # --- Utilitaires (choix David) ---
+  # --- Utilitaires (choix Gordorak) ---
   emi
   jade
   xaeros-minimap

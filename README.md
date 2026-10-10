@@ -8,17 +8,14 @@ Thème : automatisation Create, cuisine & agriculture, exploration de structures
 `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/pack/pack.toml`
 
 Ce dépôt sert à toute la guilde : chaque personne y trouve de quoi installer le pack et rejoindre
-le serveur, et David y maintient la liste des mods.
+le serveur, et Gordorak y maintient la liste des mods.
 
 ## Guide à distribuer
 
-`docs/Guide-Minecraft-Deadmoon.pdf` — 5 pages, prêt à envoyer à la guilde : installation pas à pas
-via le launcher CurseForge, connexion au serveur, dépannage et contenu du pack. Sans illustration :
-le guide s'appuie sur des captures d'écran et des consignes courtes.
-
-⚠️ **Les 7 captures manquent encore** : voir `docs/captures/README.md` pour la liste exacte et les
-noms de fichiers attendus. En attendant, le PDF affiche des emplacements pointillés à leur place.
-Régénération après ajout : `.venv/bin/python docs/guide.py` (nécessite reportlab).
+`docs/Guide-Minecraft-Deadmoon.pdf` — 3 pages, prêt à envoyer à la guilde : installation pas à pas
+**sous Windows avec Prism Launcher**, en partant d'un PC où rien n'est installé, puis connexion au
+serveur et dépannage. Texte seul, ni illustration ni capture d'écran.
+Régénération : `.venv/bin/python docs/guide.py` (nécessite reportlab).
 
 Lien direct :
 `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/docs/Guide-Minecraft-Deadmoon.pdf`

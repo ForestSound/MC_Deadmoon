@@ -88,7 +88,7 @@ def page_frame(c, kicker, title, num):
     c.setStrokeColor(RULE); c.setLineWidth(0.8); c.line(M, y, W - M, y)
     # pied de page
     c.setFont("Fira", 7.6); c.setFillColor(MUTED)
-    c.drawString(M, 12 * mm, "Minecraft Deadmoon · guide v2.0")
+    c.drawString(M, 12 * mm, "Minecraft Deadmoon · guide v3.0")
     c.drawRightString(W - M, 12 * mm, str(num))
     return y - 11 * mm
 
@@ -136,139 +136,98 @@ def note_box(c, title, lines, x, y, w, accent=COPPER):
     return y - bh
 
 
-# ---------------------------------------------------------------- captures d'écran
-CAPTURES = "captures"   # dossier des images, à côté de ce script
+# ---------------------------------------------------------------- contenu
+URL_PACK = "https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/pack/pack.toml"
 
-def shot(c, filename, caption, x, y, w, h):
-    """Place une capture d'écran. Si l'image manque, dessine un emplacement légendé
-    de la même taille : le gabarit reste identique avant et après ajout des images."""
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), CAPTURES, filename)
-    if os.path.exists(path):
-        from reportlab.lib.utils import ImageReader
-        img = ImageReader(path)
-        iw, ih = img.getSize()
-        scale = min(w / iw, h / ih)            # on garde les proportions, jamais d'étirement
-        dw, dh = iw * scale, ih * scale
-        dx = x + (w - dw) / 2
-        c.drawImage(img, dx, y - h + (h - dh) / 2, dw, dh, mask="auto")
-        c.setStrokeColor(RULE); c.setLineWidth(0.8)
-        c.rect(dx, y - h + (h - dh) / 2, dw, dh, stroke=1, fill=0)
-    else:
-        c.setFillColor(HexColor("#EFECE4")); c.setStrokeColor(HexColor("#C9C2B2"))
-        c.setLineWidth(0.9); c.setDash(3, 3)
-        c.roundRect(x, y - h, w, h, 1.6 * mm, stroke=1, fill=1)
-        c.setDash()
-        tracked(c, "CAPTURE À AJOUTER", x + w / 2, y - h / 2 + 2.5 * mm,
-                "Fira-Semi", 7.4, HexColor("#A79D88"), 1.6, center=True)
-        p = Paragraph(f"<i>{caption}</i>", st("Fira", 8.2, 11.4, HexColor("#8D8577"), align=1))
-        _, th = p.wrapOn(c, w - 16 * mm, H)
-        p.drawOn(c, x + 8 * mm, y - h / 2 - th + 0.5 * mm)
-    c.setFillColor(MUTED); c.setFont("Fira-It", 8.2)
-    c.drawString(x, y - h - 4.6 * mm, caption if os.path.exists(path) else "")
-    return y - h - (7 * mm if os.path.exists(path) else 3 * mm)
-
-# ---------------------------------------------------------------- page 1
 def first_header(c):
     c.setFillColor(PAPER); c.rect(0, 0, W, H, stroke=0, fill=1)
     y = H - 24 * mm
-    tracked(c, "GUIDE D’INSTALLATION", M, y, "Fira-Med", 8.2, COPPER, tracking=2.8)
+    tracked(c, "GUIDE D’INSTALLATION · WINDOWS", M, y, "Fira-Med", 8.2, COPPER, tracking=2.8)
     y -= 15 * mm
     c.setFont("Fira-Black", 32); c.setFillColor(INK)
     c.drawString(M - 1, y, "Minecraft Deadmoon")
     y -= 8 * mm
-    para(c, "Comment installer le pack de mods et nous rejoindre sur le serveur",
+    para(c, "Installer le pack avec Prism Launcher, et nous rejoindre sur le serveur",
          st("Fira-Light", 12.5, 17, MUTED), M, y, COL)
     y -= 13 * mm
     c.setStrokeColor(RULE); c.setLineWidth(0.8); c.line(M, y, W - M, y)
     c.setFont("Fira", 7.6); c.setFillColor(MUTED)
-    c.drawString(M, 12 * mm, "Minecraft Deadmoon · guide v2.0")
+    c.drawString(M, 12 * mm, "Minecraft Deadmoon · guide v3.0")
     c.drawRightString(W - M, 12 * mm, "1")
     return y - 10 * mm
 
 def page_1(c):
     y = first_header(c)
-    y = para(c, "Minecraft Deadmoon ajoute <b>45 mods</b> à Minecraft : des machines, de la cuisine, "
-                "de nouveaux monstres et un monde entièrement refait. Pour jouer avec nous, il faut "
-                "installer ces mods chez toi. Tout se fait en une fois, en suivant les pages qui suivent. "
-                "Compte une vingtaine de minutes, dont beaucoup d’attente.",
+    y = para(c, "On installe les <b>45 mods</b> du pack avec <b>Prism Launcher</b>, un lanceur gratuit "
+                "qui remplace celui de Minecraft. Pas besoin de l’avoir déjà : on part de zéro. "
+                "Une fois réglé, <b>le pack se met à jour tout seul</b> à chaque lancement — tu n’auras "
+                "plus jamais à y toucher. Compte 30 minutes.",
              st("Fira", 10.4, 15.6), M, y, COL)
     y -= 8 * mm
     y = note_box(c, "CE QU’IL TE FAUT", [
-        "Un compte <b>Minecraft Java Edition</b>. Les versions Bedrock, Switch, PlayStation, Xbox "
-        "et téléphone <b>ne peuvent pas</b> rejoindre le serveur : ce n’est pas le même jeu.",
-        "Un ordinateur Windows, Mac ou Linux, avec environ <b>3 Go</b> de place libre.",
-        "Le fichier <font name='Mono' size='8.6'>Minecraft-Deadmoon-1.0.0-curseforge.zip</font> "
-        "que David t’a envoyé. <b>Ne l’ouvre pas et ne le décompresse pas</b> : laisse-le tel quel.",
+        "Un compte <b>Minecraft Java Edition</b> — les versions Bedrock, Switch, PlayStation, Xbox et "
+        "téléphone ne peuvent pas rejoindre le serveur.",
+        "Un PC sous <b>Windows 10 ou 11</b>, environ <b>3 Go</b> de place libre.",
+        "Tes identifiants <b>Microsoft</b>. Java, lui, s’installe tout seul avec Prism.",
     ], M, y, COL)
 
     y -= 9 * mm
-    y = step(c, 1, "Installe l’application CurseForge",
-             "Va sur <font name='Mono' size='9'>curseforge.com/download</font>, télécharge "
-             "l’application, puis installe-la comme n’importe quel logiciel. À la première ouverture, "
-             "elle demande quel jeu tu veux gérer : choisis <b>Minecraft</b>.", M, y, COL)
-    y -= 3 * mm
-    y = shot(c, "01-choix-du-jeu.png",
-             "L’application CurseForge au premier lancement : la liste des jeux, où il faut cliquer sur Minecraft.",
-             M, y, COL, 38 * mm)
-
-    y -= 4 * mm
-    y = step(c, 2, "Ouvre l’onglet Minecraft",
-             "Dans la colonne de gauche de l’application, clique sur <b>Minecraft</b>. Tu arrives sur la "
-             "page de tes profils de jeu : elle est vide pour l’instant.", M, y, COL)
-    y -= 3 * mm
-    shot(c, "02-creer-profil.png",
-         "L’onglet Minecraft, avec le bouton « Créer un profil personnalisé ».", M, y, COL, 38 * mm)
+    y = step(c, 1, "Installe Prism Launcher",
+             "Sur <font name='Mono' size='9'>prismlauncher.org/download</font>, section <b>Windows</b>, "
+             "prends le fichier <b>Installer (.exe)</b> et lance-le : installation classique, tout "
+             "suivant. Si Windows affiche « Windows a protégé votre ordinateur », clique sur "
+             "<b>Informations complémentaires</b> puis <b>Exécuter quand même</b>.", M, y, COL)
+    y -= 6 * mm
+    y = step(c, 2, "Premier démarrage",
+             "Prism demande la langue, puis propose de <b>télécharger Java</b> : accepte. "
+             "Ensuite, en haut à droite : <b>Comptes → Gérer les comptes → Ajouter un compte "
+             "Microsoft</b>, et connecte-toi. Ton pseudo s’affiche en haut à droite.", M, y, COL)
+    y -= 6 * mm
+    y = step(c, 3, "Crée l’instance",
+             "<b>Ajouter une instance</b> (en haut à gauche). Nom : <b>Deadmoon</b>. Version : "
+             "<b>1.21.1</b> — attention à ne pas prendre 1.21 ni 1.21.4. Puis, dans la colonne de "
+             "gauche, <b>NeoForge</b> en version <b>21.1.257</b>. Valide avec <b>OK</b>.", M, y, COL)
     c.showPage()
 
-# ---------------------------------------------------------------- page 2
 def page_2(c):
-    y = page_frame(c, "INSTALLATION", "Importer le pack", 2)
-    y = step(c, 3, "Importe le fichier zip",
-             "Clique sur <b>Créer un profil personnalisé</b>, puis, dans la fenêtre qui s’ouvre, sur "
-             "<b>Importer</b> (en haut à droite). Choisis le fichier zip que David t’a envoyé, et valide. "
-             "Rien d’autre à régler : tout est déjà dedans.", M, y, COL)
-    y -= 3 * mm
-    y = shot(c, "03-importer.png",
-             "La fenêtre de création de profil : le bouton « Importer » se trouve en haut à droite.",
-             M, y, COL, 50 * mm)
+    y = page_frame(c, "LA PARTIE TECHNIQUE", "Brancher les mises à jour", 2)
+    y = para(c, "Ces trois étapes disent à Prism d’aller chercher les mods à jour avant chaque "
+                "lancement. Elles ne se font qu’une fois.", st("Fira", 10.2, 15), M, y, COL)
+    y -= 8 * mm
 
+    y = step(c, 4, "Dépose le fichier de mise à jour",
+             "Télécharge <font name='Mono' size='8.8'>packwiz-installer-bootstrap.jar</font> "
+             "(Gordorak t’envoie le lien). Dans Prism : <b>clic droit sur l’instance → Dossier</b>, "
+             "entre dans le sous-dossier <font name='Mono' size='8.8'>.minecraft</font>, et colle le "
+             "fichier dedans.", M, y, COL)
     y -= 6 * mm
-    y = step(c, 4, "Laisse l’installation se faire",
-             "L’application télécharge Minecraft, le moteur de mods NeoForge, puis les 45 mods. "
-             "Cela prend <b>5 à 10 minutes</b> selon ta connexion. Tu peux faire autre chose pendant "
-             "ce temps, mais ne ferme pas la fenêtre.", M, y, COL)
-    y -= 3 * mm
-    shot(c, "04-installation.png",
-         "Le profil « Minecraft Deadmoon » en cours d’installation.", M, y, COL, 50 * mm)
-    c.showPage()
+    y = step(c, 5, "Colle la commande",
+             "Clic droit sur l’instance → <b>Modifier → Paramètres</b> → coche <b>Commandes "
+             "personnalisées</b>. Dans <b>Pre-launch command</b>, colle la ligne ci-dessous. "
+             "<b>Copie-la depuis le message de Gordorak</b> : une faute de frappe et rien ne marche.",
+             M, y, COL)
+    y -= 3.5 * mm
+    y = mono_box(c, '"$INST_JAVA" -jar packwiz-installer-bootstrap.jar<br/>' + URL_PACK, M, y, COL, size=8.4)
 
-# ---------------------------------------------------------------- page 3
-def page_3(c):
-    y = page_frame(c, "INSTALLATION", "Régler et lancer", 3)
-    y = step(c, 5, "Donne-lui assez de mémoire",
-             "C’est l’étape que tout le monde oublie, et sans elle le jeu plante. Passe la souris sur le "
-             "profil, clique sur la <b>roue crantée</b>, puis <b>Paramètres → Mémoire allouée</b>, et règle "
-             "sur <b>6 Go</b> au minimum (8 Go si ton ordinateur en a 16).", M, y, COL)
-    y -= 3 * mm
-    y = shot(c, "05-memoire.png",
-             "Les paramètres du profil : le curseur « Mémoire allouée » réglé sur 6 Go.", M, y, COL, 52 * mm)
-
+    y -= 7 * mm
+    y = step(c, 6, "Règle la mémoire",
+             "Toujours dans <b>Paramètres</b>, onglet <b>Java</b> : coche <b>Allocation mémoire</b> et "
+             "mets la mémoire maximale à <b>6144 Mo</b> (8192 si ton PC a 16 Go). Sans ça, le jeu "
+             "plante au chargement — c’est l’oubli le plus fréquent.", M, y, COL)
     y -= 6 * mm
-    y = step(c, 6, "Lance le jeu",
-             "Clique sur <b>Jouer</b>. Le premier démarrage prend 3 à 5 minutes : c’est normal, le jeu "
-             "assemble tous les mods. Les fois suivantes seront bien plus rapides.", M, y, COL)
+    y = step(c, 7, "Lance le jeu",
+             "Double-clique sur l’instance. Les 45 mods se téléchargent, puis Minecraft démarre. "
+             "Le premier lancement prend 3 à 5 minutes, les suivants sont rapides.", M, y, COL)
 
     y -= 9 * mm
-    note_box(c, "ÇA Y EST, LE PACK EST INSTALLÉ", [
-        "Tu peux déjà jouer en solo, mais le plus intéressant est sur le serveur : la page suivante "
-        "explique comment nous y retrouver.",
-        "Garde le fichier zip quelque part, il resservira si tu dois réinstaller.",
+    note_box(c, "LES PROCHAINES FOIS", [
+        "Double-clic sur l’instance, et c’est tout : les mods ajoutés ou mis à jour par Gordorak "
+        "se téléchargent automatiquement avant le lancement.",
     ], M, y, COL)
     c.showPage()
 
-# ---------------------------------------------------------------- page 4
-def page_4(c):
-    y = page_frame(c, "DERNIÈRE ÉTAPE", "Nous rejoindre sur le serveur", 4)
+def page_3(c):
+    y = page_frame(c, "DERNIÈRE ÉTAPE", "Nous rejoindre", 3)
 
     bh = 26 * mm
     c.setFillColor(NIGHT); c.roundRect(M, y - bh, COL, bh, 2.4 * mm, stroke=0, fill=1)
@@ -277,78 +236,54 @@ def page_4(c):
     c.drawString(M + 8 * mm, y - 19 * mm, "mcdeadmoon.omgserv.net:10023")
     y -= bh + 9 * mm
 
-    y = step(c, 7, "Ouvre « Multijoueur », puis « Ajouter un serveur »",
+    y = step(c, 8, "Multijoueur → Ajouter un serveur",
              "Depuis l’écran d’accueil de Minecraft, une fois le jeu lancé.", M, y, COL)
-    y -= 4 * mm
-    y = step(c, 8, "Remplis les deux cases",
-             "<b>Nom du serveur</b> : ce que tu veux, par exemple Deadmoon. "
-             "<b>Adresse du serveur</b> : recopie l’adresse ci-dessus en entier. "
-             "Le <font name='Mono' size='9'>:10023</font> à la fin fait partie de l’adresse, "
-             "sans lui ça ne marchera pas.", M, y, COL)
-    y -= 3 * mm
-    y = shot(c, "06-ajouter-serveur.png",
-             "Le formulaire « Ajouter un serveur », rempli avec l’adresse complète.", M, y, COL, 44 * mm)
-
     y -= 5 * mm
-    y = step(c, 9, "Valide, puis double-clique sur le serveur",
-             "Il apparaît dans ta liste. Une barre verte à droite du nom veut dire qu’il est allumé : "
-             "double-clique dessus, et tu arrives au milieu des autres.", M, y, COL)
-    y -= 3 * mm
-    shot(c, "07-serveur-en-ligne.png",
-         "Le serveur dans la liste, avec la barre verte qui indique qu’il est en ligne.", M, y, COL, 38 * mm)
-    c.showPage()
+    y = step(c, 9, "Remplis les deux cases",
+             "<b>Nom</b> : ce que tu veux. <b>Adresse</b> : recopie celle ci-dessus en entier — le "
+             "<font name='Mono' size='9'>:10023</font> en fait partie, sans lui ça ne marche pas. "
+             "Valide, puis double-clique sur le serveur : une barre verte signifie qu’il est allumé.",
+             M, y, COL)
 
-# ---------------------------------------------------------------- page 5
-def page_5(c):
-    y = page_frame(c, "EN CAS DE PROBLÈME", "Si ça coince", 5)
-    y = note_box(c, "LES CAS LES PLUS COURANTS", [
-        "<b>« Outdated server » ou « Outdated client »</b> — tes mods ne sont pas les mêmes que ceux du "
-        "serveur. Réimporte le zip envoyé par David, sans rien ajouter ni retirer.",
-        "<b>Barre rouge, « Connection refused »</b> — le serveur est éteint ou en train de redémarrer. "
-        "Réessaie dans deux minutes.",
-        "<b>Le jeu plante pendant le chargement</b> — la mémoire est trop basse. Reprends l’étape 5 et "
-        "monte à 8 Go.",
-        "<b>Le jeu rame beaucoup</b> — baisse la distance d’affichage à 8 ou 10 chunks dans les options "
-        "vidéo. Avec 45 mods, ça change tout.",
-        "<b>Tu ne reconnais plus rien dans le monde</b> — c’est voulu : les paysages et les donjons sont "
-        "entièrement refaits.",
-        "<b>Rien ne marche</b> — envoie à David le fichier <font name='Mono' size='8.6'>latest.log</font>, "
-        "qui se trouve dans le dossier <font name='Mono' size='8.6'>logs</font> du profil "
-        "(clic droit sur le profil → Ouvrir le dossier).",
+    y -= 10 * mm
+    y = note_box(c, "SI ÇA COINCE", [
+        "<b>Les mods ne se téléchargent pas</b> — vérifie que le fichier <font name='Mono' "
+        "size='8.6'>.jar</font> est bien dans <font name='Mono' size='8.6'>.minecraft</font> et que la "
+        "commande a été collée en entier, guillemets compris.",
+        "<b>« Outdated server » ou « Outdated client »</b> — relance le jeu, la mise à jour se fait au "
+        "démarrage.",
+        "<b>« Connection refused »</b> — le serveur redémarre, réessaie dans deux minutes.",
+        "<b>Plantage au chargement</b> — monte la mémoire à 8192 Mo (étape 6).",
+        "<b>Ça rame</b> — baisse la distance d’affichage à 8 ou 10 chunks dans les options vidéo.",
+        "<b>Rien ne marche</b> — envoie à Gordorak le fichier <font name='Mono' size='8.6'>"
+        ".minecraft/logs/latest.log</font> (clic droit sur l’instance → Dossier).",
     ], M, y, COL, accent=CRIMSON)
 
-    y -= 11 * mm
-    tracked(c, "CE QU’IL Y A DANS LE PACK", M, y, "Fira-Semi", 8.2, COPPER, tracking=1.8)
-    y -= 7 * mm
+    y -= 10 * mm
+    tracked(c, "DANS LE PACK", M, y, "Fira-Semi", 8.2, COPPER, tracking=1.8)
+    y -= 6.5 * mm
     for titre, desc in [
-        ("Create et ses extensions",
-         "Convoyeurs, trains, machines à vapeur, et de quoi automatiser la cuisine."),
-        ("Cuisine et agriculture",
-         "Des centaines de cultures et de recettes, du vin, de la bière, des dîners aux chandelles."),
-        ("Un monde refait",
-         "Nouveaux paysages, donjons, mines, temples et forteresses repensés de fond en comble."),
-        ("Créatures",
-         "Des boss sérieux. N’y va pas en armure de cuir."),
-        ("Confort",
-         "Téléportation entre balises, recherche de structures et de biomes, carte, livre de recettes."),
+        ("Create et ses extensions", "Convoyeurs, trains, machines à vapeur, cuisine automatisée."),
+        ("Cuisine et agriculture", "Des centaines de cultures et de recettes, du vin, de la bière."),
+        ("Un monde refait", "Paysages, donjons, mines et temples repensés de fond en comble."),
+        ("Créatures", "Des boss sérieux. N’y va pas en armure de cuir."),
+        ("Confort", "Balises de téléportation, boussoles, carte, livre de recettes."),
     ]:
-        y = para(c, f"<b>{titre}</b> — {desc}", st("Fira", 9.8, 14), M, y, COL)
-        y -= 3.4 * mm
+        y = para(c, f"<b>{titre}</b> — {desc}", st("Fira", 9.6, 13.6), M, y, COL)
+        y -= 2.8 * mm
 
     c.setFont("Fira", 8.4); c.setFillColor(MUTED)
-    c.drawCentredString(W / 2, 20 * mm, "Des questions ? Demande à David.  ·  github.com/ForestSound/MC_Deadmoon")
+    c.drawCentredString(W / 2, 20 * mm, "Des questions ? Demande à Gordorak.  ·  github.com/ForestSound/MC_Deadmoon")
     c.showPage()
 
-# ---------------------------------------------------------------- assemblage
 def build(path):
     c = canvas.Canvas(path, pagesize=A4)
-    c.setTitle("Minecraft Deadmoon — guide d’installation")
-    c.setAuthor("David"); c.setSubject("Installer le modpack et rejoindre le serveur")
-    page_1(c); page_2(c); page_3(c); page_4(c); page_5(c)
+    c.setTitle("Minecraft Deadmoon — guide d’installation (Windows / Prism Launcher)")
+    c.setAuthor("Gordorak"); c.setSubject("Installer le modpack avec Prism Launcher et rejoindre le serveur")
+    for page in (page_1, page_2, page_3):
+        page(c)
     c.save()
-    manquantes = [f for f in sorted(os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), CAPTURES)))] \
-        if os.path.isdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), CAPTURES)) else []
-    print(f"{path} ({os.path.getsize(path)/1024:.0f} Ko) — captures présentes : {len(manquantes)}/7")
+    print(f"{path} ({os.path.getsize(path)/1024:.0f} Ko, 3 pages)")
 
 if __name__ == "__main__":
     build(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Guide-Minecraft-Deadmoon.pdf"))
