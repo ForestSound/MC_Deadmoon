@@ -7,15 +7,22 @@ Thème : automatisation Create, cuisine & agriculture, exploration de structures
 **URL du pack** (pour l'installeur packwiz) :
 `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/pack/pack.toml`
 
-## Guide pour tes ami·es
+Ce dépôt sert à toute la guilde : chaque personne y trouve de quoi installer le pack et rejoindre
+le serveur, et David y maintient la liste des mods.
 
-`docs/Guide-Minecraft-Deadmoon.pdf` — 4 pages, prêt à envoyer : installation via le launcher
-CurseForge, connexion au serveur, dépannage et contenu du pack.
+## Guide à distribuer
+
+`docs/Guide-Minecraft-Deadmoon.pdf` — 4 pages, prêt à envoyer à la guilde : installation via le
+launcher CurseForge, connexion au serveur, dépannage et contenu du pack.
 Régénération après modification : `.venv/bin/python docs/guide.py` (nécessite reportlab).
 
-## Pour tes ami·es (client)
+Lien direct :
+`https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/docs/Guide-Minecraft-Deadmoon.pdf`
 
-Le pack s'installe **et se met à jour tout seul** à chaque lancement. Une seule config à faire :
+## Installer le pack (côté joueur·euse)
+
+Avec **Prism Launcher**, le pack s'installe **et se met à jour tout seul** à chaque lancement.
+Une seule configuration à faire, puis plus personne n'a à y penser :
 
 1. Installer [Prism Launcher](https://prismlauncher.org/) (gratuit, Windows/Mac/Linux).
 2. *Ajouter une instance* → **Minecraft 1.21.1** → onglet *Mod Loader* → **NeoForge 21.1.257**.
@@ -28,36 +35,53 @@ Le pack s'installe **et se met à jour tout seul** à chaque lancement. Une seul
    "$INST_JAVA" -jar packwiz-installer-bootstrap.jar https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/pack/pack.toml
    ```
 
-5. Lancer. Les 45 mods se téléchargent ; aux lancements suivants seuls les changements sont récupérés.
+5. Lancer. Les 45 mods se téléchargent ; aux lancements suivants, seuls les changements sont récupérés.
+
+Mémoire conseillée : **6 Go minimum, 8 Go confortable**.
 
 ### Variante : launcher CurseForge (Windows)
 
-Le launcher CurseForge **ne sait pas lire un pack packwiz** : pas de commande pre-launch, donc pas de
-mise à jour automatique. Il faut leur envoyer un zip, à refaire à chaque modification du pack.
+Le launcher CurseForge **ne sait pas lire un pack packwiz** : il n'a pas de commande pre-launch, donc
+pas de mise à jour automatique. Il faut alors diffuser un zip, à refaire à chaque modification du pack.
 
-1. Tu génères le zip : `cd pack && packwiz curseforge export` → `build/Minecraft-Deadmoon-1.0.0-curseforge.zip` (191 Mo)
-2. Elles l'installent : CurseForge App → *Minecraft* → *Créer un profil personnalisé* → **Importer** → choisir le zip
+1. Côté maintenance, générer le zip : `cd pack && packwiz curseforge export`
+   → `build/Minecraft-Deadmoon-1.0.0-curseforge.zip` (191 Mo)
+2. Côté guilde, chaque personne l'installe : CurseForge App → *Minecraft* →
+   *Créer un profil personnalisé* → **Importer** → choisir le zip
 
-Sur les 45 mods, seuls 2 sont référencés par identifiant CurseForge ; les 43 autres sont **embarqués comme
-jars** dans le zip (d'où les 191 Mo). C'est fonctionnel, mais chaque mise à jour = un transfert de 191 Mo
-et une réinstallation manuelle pour tout le monde.
+Sur les 45 mods, seuls 2 sont référencés par identifiant CurseForge ; les 43 autres sont **embarqués
+comme jars** dans le zip (d'où les 191 Mo). C'est fonctionnel, mais chaque mise à jour représente un
+transfert de 191 Mo et une réinstallation manuelle pour tout le monde.
 
-Autre variante : le fichier `.mrpack` (2 Mo), importable dans Prism ou l'app Modrinth — mais pas dans le launcher CurseForge.
+Autre variante : le fichier `.mrpack` (2 Mo), importable dans Prism ou l'app Modrinth — mais pas dans
+le launcher CurseForge.
 
-## Pour le serveur (OMGServ)
+## Rejoindre le serveur
+
+Adresse à ajouter dans *Multijoueur* → *Ajouter un serveur* :
+
+```
+mcdeadmoon.omgserv.net:10023
+```
+
+Le `:10023` fait partie de l'adresse : sans lui, la connexion échoue. Tout le monde doit utiliser
+**exactement la même version du pack** que le serveur, sinon Minecraft refuse la connexion avec un
+message « Outdated client » ou « Outdated server ».
+
+## Déployer le serveur (OMGServ)
 
 1. Panel OMGServ → type de serveur **NeoForge**, version **1.21.1** (build **21.1.257**).
-2. FTP : vider le dossier `mods/` existant, puis envoyer le contenu de **`build/server-mods.zip`**
+2. FTP : vider le dossier `mods/` existant, puis envoyer **`build/server-mods.zip`**
    (il se décompresse en `mods/` à la racine du serveur) — 41 jars, 216 Mo décompressés.
    Les 4 mods purement client (EMI, Jade, Xaero's Minimap & World Map) en sont exclus : inutiles côté serveur.
 3. RAM conseillée : **6 Go minimum, 8 Go confortable** (Create + Terralith + 10 mods de structures).
-4. Premier démarrage long (génération des registres). Si le panel propose `--add-modules` ou des flags Java,
-   laisser les réglages par défaut d'OMGServ.
+4. Premier démarrage long (génération des registres). Si le panel propose `--add-modules` ou des flags
+   Java, laisser les réglages par défaut d'OMGServ.
 
-⚠️ Client et serveur doivent avoir **exactement les mêmes versions** de mods : regénère le zip (`./build-server.sh`)
-à chaque mise à jour du pack.
+⚠️ Client et serveur doivent porter **exactement les mêmes versions** de mods : regénérer le zip
+(`./build-server.sh`) à chaque mise à jour du pack, et prévenir la guilde.
 
-## Pour toi (maintenance)
+## Maintenance du pack
 
 `packwiz` est dans `~/.local/bin/packwiz` (compilé en conteneur, rien installé en système).
 
@@ -69,11 +93,13 @@ packwiz remove <nom>            # retirer un mod
 packwiz update --all            # mettre tout à jour
 packwiz refresh                 # reconstruire l'index (après édition manuelle)
 cd .. && ./build-server.sh      # regénérer le zip serveur
-git add -A && git commit -m "..." && git push   # publier → tes ami·es l'ont au prochain lancement
+git add -A && git commit -m "..." && git push   # publier → la guilde l'a au prochain lancement
 ```
 
 - `add-mods.sh` : réinstalle toute la liste de zéro (idempotent).
 - Un mod **client only** : ajouter `side = "client"` dans son `pack/mods/<mod>.pw.toml`, puis `packwiz refresh`.
+- Après chaque changement : régénérer le zip serveur, l'envoyer sur OMGServ, et prévenir les personnes
+  qui jouent via le launcher CurseForge (elles ne reçoivent rien automatiquement).
 
 ## Contenu
 
