@@ -1,0 +1,8 @@
+# Export temporaires
+*.mrpack
+*.zip
+build/
+# Serveur de test local (jamais dans le dépôt)
+server-test/
+# Divers
+.DS_Store
