@@ -254,7 +254,7 @@ def page_install(c):
 
     y -= 7 * mm
     note_box(c, "ET ENSUITE ?", [
-        "Le pack est installé : la page suivante explique comment rejoindre le serveur <b>Deadmoon</b>.",
+        "Le pack est installé : la page suivante explique comment rejoindre tout le monde sur le serveur <b>Deadmoon</b>.",
         "Garde le fichier zip, il resservira en cas de réinstallation.",
     ], M, y, COL)
     c.showPage()
@@ -289,7 +289,8 @@ def page_server(c):
              "à la fin est indispensable : sans lui, la connexion échouera.", M, y, COL)
     y -= 5.5 * mm
     y = step(c, 5, "Terminé, puis double-clique sur le serveur",
-             "Il apparaît dans ta liste. Une barre verte à droite du nom signifie qu’il est en ligne.",
+             "Il apparaît dans ta liste. Une barre verte à droite du nom signifie qu’il est en ligne : "
+             "double-clique, et tu arrives au milieu des autres.",
              M, y, COL)
 
     y -= 11 * mm
