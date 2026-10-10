@@ -1,4 +1,4 @@
-# Deadmoon
+# Minecraft Deadmoon
 
 Modpack Minecraft **1.21.1** / **NeoForge 21.1.257**, géré avec [packwiz](https://packwiz.infra.link/).
 Thème : automatisation Create, cuisine & agriculture, exploration de structures.
@@ -6,6 +6,12 @@ Thème : automatisation Create, cuisine & agriculture, exploration de structures
 **Serveur** : `mcdeadmoon.omgserv.net:10023`
 **URL du pack** (pour l'installeur packwiz) :
 `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/pack/pack.toml`
+
+## Guide pour tes ami·es
+
+`docs/Guide-Minecraft-Deadmoon.pdf` — 4 pages, prêt à envoyer : installation via le launcher
+CurseForge, connexion au serveur, dépannage et contenu du pack.
+Régénération après modification : `.venv/bin/python docs/guide.py` (nécessite reportlab).
 
 ## Pour tes ami·es (client)
 
@@ -29,7 +35,7 @@ Le pack s'installe **et se met à jour tout seul** à chaque lancement. Une seul
 Le launcher CurseForge **ne sait pas lire un pack packwiz** : pas de commande pre-launch, donc pas de
 mise à jour automatique. Il faut leur envoyer un zip, à refaire à chaque modification du pack.
 
-1. Tu génères le zip : `cd pack && packwiz curseforge export` → `build/Deadmoon-1.0.0-curseforge.zip` (191 Mo)
+1. Tu génères le zip : `cd pack && packwiz curseforge export` → `build/Minecraft-Deadmoon-1.0.0-curseforge.zip` (191 Mo)
 2. Elles l'installent : CurseForge App → *Minecraft* → *Créer un profil personnalisé* → **Importer** → choisir le zip
 
 Sur les 45 mods, seuls 2 sont référencés par identifiant CurseForge ; les 43 autres sont **embarqués comme
