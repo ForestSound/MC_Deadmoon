@@ -151,8 +151,36 @@ port=24454
 Remplace `24454` par le port alloué. Les joueur·euses n'ont rien à régler : le serveur leur annonce
 le bon port à la connexion.
 
+**Constaté sur OMGServ le 2026-10-11** : avec les réglages par défaut, le démarrage échoue avec
+
+```
+[voicechat] Using server-ip as bind address: 62.210.231.111
+[voicechat] Failed to bind to address '62.210.231.111', binding to wildcard IP instead
+[voicechat] Failed to run voice chat at UDP port 24454
+java.net.BindException: Adresse déjà utilisée
+```
+
+Le 24454 est occupé par un autre locataire de la machine mutualisée. Le serveur Minecraft, lui,
+démarre normalement : seul le fil du vocal s'arrête. Les trois réglages à poser :
+
+```properties
+port=<port UDP alloué par OMGServ>
+bind_address=*
+voice_host=<adresse:port externe, uniquement si le panel mappe un port différent>
+```
+
+`bind_address=*` évite la tentative de liaison sur l'IP publique, qui échoue en conteneur.
+`voice_host` n'est utile que si l'hébergeur traduit le port : c'est l'adresse annoncée aux clients.
+
+Au redémarrage, chercher dans le log la ligne de succès :
+
+```
+[voicechat] Voice chat server started at <adresse>:<port>
+```
+
 > L'option `port=-1` fait réutiliser le port du jeu. **À éviter** : la documentation du mod précise
 > que ce port sert aussi à la requête serveur en UDP, et que l'utiliser peut faire planter le serveur.
+> Sur ce serveur c'est d'autant plus vrai que le listener GS4 écoute déjà sur le 10023.
 
 Si OMGServ ne donne aucun port UDP supplémentaire, le mod se charge sans erreur mais le vocal ne
 connecte pas — l'icône reste barrée. Dans ce cas il faut retirer le mod, ou passer par Discord.
