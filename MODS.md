@@ -2,8 +2,8 @@
 
 Pack **1.1.0** · Minecraft **1.21.1** · NeoForge **21.1.257** · généré le 2026-10-11.
 
-**89 mods** et **3 shaderpacks**. 8 mods sont purement client :
-le serveur en reçoit **81**.
+**90 mods** et **3 shaderpacks**. 8 mods sont purement client :
+le serveur en reçoit **82**.
 
 Ce fichier est généré par `gen-modlist.py` à partir des métadonnées packwiz de `pack/`.
 Ne pas l'éditer à la main : relancer `python3 gen-modlist.py` après chaque modification du pack.
@@ -58,6 +58,7 @@ Retour au [README](README.md).
 | [[Let's Do] Vinery](https://modrinth.com/project/lets-do-vinery) | `1.5.5` | client + serveur | Modrinth |
 | [Lionfish-API](https://modrinth.com/project/lionfish-api) | `3.1` | client + serveur | Modrinth |
 | [Lithostitched](https://modrinth.com/project/lithostitched) | `1.8.0-neoforge-21.1` | client + serveur | Modrinth |
+| [Lootr](https://modrinth.com/project/lootr) | `1.21.1-1.11.38.127` | client + serveur | Modrinth |
 | [Macaw's Bridges](https://modrinth.com/project/macaws-bridges) | `3.1.2` | client + serveur | Modrinth |
 | [Macaw's Doors](https://modrinth.com/project/macaws-doors) | `1.1.5` | client + serveur | Modrinth |
 | [Macaw's Fences and Walls](https://modrinth.com/project/macaws-fences-and-walls) | `1.2.1` | client + serveur | Modrinth |
