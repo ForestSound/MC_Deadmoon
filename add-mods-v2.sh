@@ -27,6 +27,8 @@ MODRINTH=(
 # christmas-delight : aucun build 1.21.1 NeoForge (le jar CurseForge est en 1.20.1).
 # treetimber : repris depuis Modrinth, URL stable.
 # gobber, teyvats-delight : retires a la demande de Gordorak (2026-10-11).
+# croptopia + epherolib : retires (redondants avec Farmer's Delight), 2026-10-11.
+# Plus aucun mod CurseForge dans le pack.
 CURSEFORGE=( )
 
 ok=0; skip=0; fail=0

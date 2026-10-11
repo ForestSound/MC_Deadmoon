@@ -8,3 +8,5 @@ build/
 server-test/
 # Divers
 .DS_Store
+# Configs serveur recuperees par FTP (reference, pas distribuees par packwiz)
+!serveur-config/

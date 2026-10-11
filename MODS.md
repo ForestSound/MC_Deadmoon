@@ -2,8 +2,8 @@
 
 Pack **1.1.0** · Minecraft **1.21.1** · NeoForge **21.1.257** · généré le 2026-10-11.
 
-**92 mods** et **3 shaderpacks**. 8 mods sont purement client :
-le serveur en reçoit **84**.
+**90 mods** et **3 shaderpacks**. 8 mods sont purement client :
+le serveur en reçoit **82**.
 
 Ce fichier est généré par `gen-modlist.py` à partir des métadonnées packwiz de `pack/`.
 Ne pas l'éditer à la main : relancer `python3 gen-modlist.py` après chaque modification du pack.
@@ -32,14 +32,12 @@ Retour au [README](README.md).
 | [Create Crafts & Additions](https://modrinth.com/project/createaddition) | `neoforge-1.21.1-1.7.2` | client + serveur | Modrinth |
 | [Create: Central Kitchen](https://modrinth.com/project/create-central-kitchen) | `2.6.2b` | client + serveur | Modrinth |
 | [Create: Dragons Plus](https://modrinth.com/project/create-dragons-plus) | `1.11.9` | client + serveur | Modrinth |
-| [Croptopia](https://www.curseforge.com/projects/415438) | `4.2.4` | client + serveur | CurseForge |
 | [Curios API](https://modrinth.com/project/curios) | `9.5.1+1.21.1` | client + serveur | Modrinth |
 | [Diagonal Fences](https://modrinth.com/project/diagonal-fences) | `v21.1.1-1.21.1-NeoForge` | client + serveur | Modrinth |
 | [Diagonal Walls](https://modrinth.com/project/diagonal-walls) | `v21.1.2-1.21.1-NeoForge` | client + serveur | Modrinth |
 | [Diagonal Windows](https://modrinth.com/project/diagonal-windows) | `v21.1.1-1.21.1-NeoForge` | client + serveur | Modrinth |
 | [Dungeons and Taverns](https://modrinth.com/project/dungeons-and-taverns) | `v4.4.4+mod` | client + serveur | Modrinth |
 | [EMI](https://modrinth.com/project/emi) | `1.1.24+1.21.1+neoforge` | **client seul** | Modrinth |
-| [EpheroLib](https://www.curseforge.com/projects/885449) | `1.2.0` | client + serveur | CurseForge |
 | [Expanded Delight](https://modrinth.com/project/expanded-delight) | `0.1.4-neoforge` | client + serveur | Modrinth |
 | [Explorer's Compass](https://modrinth.com/project/explorers-compass) | `1.21.1-3.4.0-neoforge` | client + serveur | Modrinth |
 | [Explorify](https://modrinth.com/project/explorify) | `v1.6.5` | client + serveur | Modrinth |

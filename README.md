@@ -2,7 +2,7 @@
 
 Modpack Minecraft **1.21.1** / **NeoForge 21.1.257**, géré avec [packwiz](https://packwiz.infra.link/).
 Thème : automatisation Create, cuisine & agriculture, décoration, exploration de structures.
-**92 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
+**90 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
 Liste exhaustive avec les numéros de version : **[MODS.md](MODS.md)**.
 
 **Serveur** : `mcdeadmoon.omgserv.net:10023`
@@ -221,7 +221,7 @@ crée vide à son premier démarrage.
 racine du serveur
 ├── libraries/
 ├── logs/
-├── mods/              ← les 84 jars ici, en vrac
+├── mods/              ← les 82 jars ici, en vrac
 ├── world/
 ├── eula.txt
 └── server.properties  ← ce fichier identifie la racine
@@ -233,11 +233,11 @@ Dans l'ordre :
 2. **Supprimer `world/`** (ainsi que `world_nether/` et `world_the_end/` s'ils existent). Terralith
    remplace la génération du terrain : sur un monde déjà généré en vanilla, on obtient une zone de
    spawn vanilla, des biomes Terralith autour, et des murs de terrain à la frontière.
-3. **Vider `mods/`**, puis envoyer les **84 jars** de `build/server-mods.zip` (295 Mo décompressés).
+3. **Vider `mods/`**, puis envoyer les **82 jars** de `build/server-mods.zip` (292 Mo décompressés).
    Les jars vont **directement** dans `mods/`, sans sous-dossier : extraire le zip depuis la racine,
    pas depuis l'intérieur de `mods/`, sinon on obtient `mods/mods/` et le serveur démarre sans aucun
    mod — sans erreur visible, jusqu'à ce que tout le monde soit rejeté en « Outdated client ».
-4. **Mémoire : 6 Go minimum** (8 Go confortable à 92 mods). Dans `server.properties` :
+4. **Mémoire : 6 Go minimum** (8 Go confortable à 90 mods). Dans `server.properties` :
    `view-distance=8` et `simulation-distance=6`. Au-delà, le serveur s'écroule dès que trois
    personnes s'éloignent.
 5. **Démarrer et surveiller la console** jusqu'à `Done (XXXs)! For help, type "help"`. Compter 3 à
@@ -245,7 +245,7 @@ Dans l'ordre :
    En cas de plantage, la console nomme le mod fautif.
 6. **Tester soi-même** avant d'annoncer l'adresse à la guilde.
 
-**84 jars côté serveur contre 92 côté client, c'est normal** : EMI, Jade, Iris, Sodium, Athena,
+**82 jars côté serveur contre 90 côté client, c'est normal** : EMI, Jade, Iris, Sodium, Athena,
 Nemo's Inventory Sorting et les deux Xaero's sont purement client, `build-server.sh` les exclut (ils
 portent `side = "client"` dans leur `.pw.toml`). Les shaderpacks sont exclus pour la même raison.
 
@@ -290,6 +290,12 @@ des erreurs de chargement de chunks. `world/` sauvegardé à l'étape 3, c'est l
 ## Maintenance du pack
 
 `packwiz` est dans `~/.local/bin/packwiz` (compilé en conteneur, rien installé en système).
+**Tous les mods viennent désormais de Modrinth** : plus aucune métadonnée CurseForge à résoudre,
+donc plus de risque qu'un auteur coupe la distribution tierce et casse l'installation de la guilde.
+
+`serveur-config/` garde une copie de référence des fichiers de configuration récupérés sur le
+serveur par FTP. Ils ne sont **pas** distribués par packwiz : c'est de la documentation, à recopier
+à la main sur l'hébergement.
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
@@ -330,7 +336,7 @@ Create Confectionery
 
 ### Cuisine & agriculture
 Farmer's Delight · Expanded Delight · ExtraDelight · Ube's Delight · Brewin' and Chewin' ·
-Croptopia *(CurseForge)* · Aquaculture 2 + Aquaculture Delight ·
+Aquaculture 2 + Aquaculture Delight ·
 [Let's Do] Farm & Charm *(socle requis en 1.21.1)* · Vinery · Bakery · Brewery · Candlelight
 
 ### Farmer's Delight — addons de cuisine du monde
@@ -366,12 +372,14 @@ Iris Shaders *(client)* · Sodium *(client)* · EMI *(client)* · Jade *(client)
 ### Écartés volontairement
 **JEI** — EMI remplit le même rôle, et les deux ensemble donnent deux interfaces de recettes
 superposées. **Gobber** et **Teyvat's Delight** — retirés à la demande de Gordorak.
-**Biomes O' Plenty** — Terralith est seul maître de la génération du monde ; faire
+**Croptopia** — trop de redondance avec Farmer's Delight et ses extensions ; EpheroLib, qui
+n'existait que pour lui, est parti avec. **Biomes O' Plenty** — Terralith est seul maître de la
+génération du monde ; faire
 cohabiter deux générateurs de biomes donne des frontières nettes et des structures mal placées.
 Retirer BoP a aussi retiré ses deux dépendances, TerraBlender et GlitchCore, dont rien d'autre
 n'avait besoin dans ce pack.
 
 ### Dépendances tirées automatiquement
 Architectury API · Balm · Curios API · Accessories · Athena *(client)* · EpheroLib · Geckolib ·
-Lionfish-API · Lithostitched *(Terralith 2.6.2)* · Moonlight Lib · owo-lib · Puzzles Lib ·
+Lionfish-API *(Cataclysm)* · Lithostitched *(Terralith 2.6.2)* · Moonlight Lib · owo-lib · Puzzles Lib ·
 Resourceful Lib · ShatterLib/OctoLib *(Relics)* · Sophisticated Core
