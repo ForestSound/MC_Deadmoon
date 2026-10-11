@@ -2,7 +2,7 @@
 
 Modpack Minecraft **1.21.1** / **NeoForge 21.1.257**, géré avec [packwiz](https://packwiz.infra.link/).
 Thème : automatisation Create, cuisine & agriculture, décoration, exploration de structures.
-**92 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
+**89 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
 
 **Serveur** : `mcdeadmoon.omgserv.net:10023`
 **URL du pack** (lue par l'installeur packwiz) :
@@ -120,7 +120,7 @@ crée vide à son premier démarrage.
 racine du serveur
 ├── libraries/
 ├── logs/
-├── mods/              ← les 84 jars ici, en vrac
+├── mods/              ← les 81 jars ici, en vrac
 ├── world/
 ├── eula.txt
 └── server.properties  ← ce fichier identifie la racine
@@ -130,13 +130,13 @@ Dans l'ordre :
 
 1. **Arrêter le serveur.** Un serveur allumé réécrit ses fichiers en s'arrêtant et écraserait l'upload.
 2. **Supprimer `world/`** (ainsi que `world_nether/` et `world_the_end/` s'ils existent). Terralith
-   et Biomes O' Plenty remplacent la génération du terrain : sur un monde déjà généré en vanilla, on
-   obtient une zone de spawn vanilla, des biomes modés autour, et des murs de terrain à la frontière.
-3. **Vider `mods/`**, puis envoyer les **84 jars** de `build/server-mods.zip` (306 Mo décompressés).
+   remplace la génération du terrain : sur un monde déjà généré en vanilla, on obtient une zone de
+   spawn vanilla, des biomes Terralith autour, et des murs de terrain à la frontière.
+3. **Vider `mods/`**, puis envoyer les **81 jars** de `build/server-mods.zip` (284 Mo décompressés).
    Les jars vont **directement** dans `mods/`, sans sous-dossier : extraire le zip depuis la racine,
    pas depuis l'intérieur de `mods/`, sinon on obtient `mods/mods/` et le serveur démarre sans aucun
    mod — sans erreur visible, jusqu'à ce que tout le monde soit rejeté en « Outdated client ».
-4. **Mémoire : 6 Go minimum** (8 Go confortable à 92 mods). Dans `server.properties` :
+4. **Mémoire : 6 Go minimum** (8 Go confortable à 89 mods). Dans `server.properties` :
    `view-distance=8` et `simulation-distance=6`. Au-delà, le serveur s'écroule dès que trois
    personnes s'éloignent.
 5. **Démarrer et surveiller la console** jusqu'à `Done (XXXs)! For help, type "help"`. Compter 3 à
@@ -144,7 +144,7 @@ Dans l'ordre :
    En cas de plantage, la console nomme le mod fautif.
 6. **Tester soi-même** avant d'annoncer l'adresse à la guilde.
 
-**84 jars côté serveur contre 92 côté client, c'est normal** : EMI, Jade, Iris, Sodium, Athena,
+**81 jars côté serveur contre 89 côté client, c'est normal** : EMI, Jade, Iris, Sodium, Athena,
 Nemo's Inventory Sorting et les deux Xaero's sont purement client, `build-server.sh` les exclut (ils
 portent `side = "client"` dans leur `.pw.toml`). Les shaderpacks sont exclus pour la même raison.
 
@@ -235,7 +235,7 @@ Les 7 **Macaw's** (Doors, Furniture, Fences and Walls, Bridges, Stairs, Painting
 Chipped · Amendments · Diagonal Fences · Diagonal Walls · Diagonal Windows · Simple Hats
 
 ### Structures & monde
-Terralith **2.6.2** *(version NeoForge dédiée)* · Biomes O' Plenty · les 10 **YUNG's Better**
+Terralith **2.6.2** *(version NeoForge dédiée)* · les 10 **YUNG's Better**
 (Dungeons, Mineshafts, Strongholds, Desert Temples, Witch Huts, Ocean Monuments, Nether Fortresses,
 End Island, Jungle Temples) + YUNG's API · When Dungeons Arise · Dungeons and Taverns · Explorify ·
 Aures - Farmers Structures · Realm RPG: Treasure Balloons
@@ -254,10 +254,14 @@ Mowzie's Mobs · L_Ender's Cataclysm
 ### Rendu & utilitaires
 Iris Shaders *(client)* · Sodium *(client)* · EMI *(client)* · Jade *(client)*
 
-Pas de JEI : **EMI** remplit le même rôle et faire tourner les deux donne deux interfaces de recettes
-superposées. À dire si quelqu'un préfère JEI, le passage est trivial.
+### Écartés volontairement
+**JEI** — EMI remplit le même rôle, et les deux ensemble donnent deux interfaces de recettes
+superposées. **Biomes O' Plenty** — Terralith est seul maître de la génération du monde ; faire
+cohabiter deux générateurs de biomes donne des frontières nettes et des structures mal placées.
+Retirer BoP a aussi retiré ses deux dépendances, TerraBlender et GlitchCore, dont rien d'autre
+n'avait besoin dans ce pack.
 
 ### Dépendances tirées automatiquement
 Architectury API · Balm · Curios API · Accessories · Athena *(client)* · EpheroLib · Geckolib ·
-GlitchCore · Lionfish-API · Lithostitched *(Terralith 2.6.2)* · Moonlight Lib · owo-lib ·
-Puzzles Lib · Resourceful Lib · Sophisticated Core · TerraBlender
+Lionfish-API · Lithostitched *(Terralith 2.6.2)* · Moonlight Lib · owo-lib · Puzzles Lib ·
+Resourceful Lib · Sophisticated Core

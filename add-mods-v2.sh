@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Vague 2 : mods issus de modlist.html (Gordorak) + Iris/Sodium + shaders.
+# Vague 2 : mods issus de modlist.html (Gordorak) + Iris/Sodium.
+# Les shaderpacks s'ajoutent a part : packwiz modrinth add <slug>, puis side = "client".
 # Idempotent : un mod deja present est saute.
 set -uo pipefail
 cd "$(dirname "$0")/pack" || exit 1
@@ -18,12 +19,14 @@ MODRINTH=(
   trashslot amendments simple-hats corpse comforts
   nemos-inventory-sorting chipped
   sophisticated-core sophisticated-backpacks
-  biomes-o-plenty terrablender glitchcore
   aquaculture ars-nouveau
   resourceful-lib puzzles-lib moonlight athena-ctm owo-lib accessories
-  sodium iris
+  sodium iris treetimber-treecapitator
 )
-CURSEFORGE=( rice-delight gobber christmas-delight treetimber )
+# rice-delight : distribution tierce coupee par l'auteur, packwiz ne peut pas le servir.
+# christmas-delight : aucun build 1.21.1 NeoForge (le jar CurseForge est en 1.20.1).
+# treetimber : repris depuis Modrinth, URL stable.
+CURSEFORGE=( gobber )
 
 ok=0; skip=0; fail=0
 for m in "${MODRINTH[@]}"; do
