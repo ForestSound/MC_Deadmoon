@@ -122,7 +122,7 @@ metafile = true
 
 [[files]]
 file = "mods/emi.pw.toml"
-hash = "4603c93edafe22ced6578fd08ca44f8c7e4c7f4e0a59c853e7552c6b8dc99388"
+hash = "3e41cb79b08092ace557713d6a24b65eff26c5658530b0c0d70e0db65794c9c2"
 metafile = true
 
 [[files]]

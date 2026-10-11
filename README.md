@@ -235,9 +235,17 @@ Dans l'ordre d'efficacité :
 2. **Réessayer immédiatement après l'échec.** La deuxième tentative est souvent plus rapide, les
    fichiers étant encore en cache disque.
 3. **Sur disque dur mécanique**, c'est la cause la plus fréquente et la plus difficile à contourner.
-4. **En dernier recours**, désactiver EMI dans la liste des mods de Prism : c'est l'indexation des
-   recettes qui coûte le plus cher. EMI est purement client, le serveur s'en moque. À retenir comme
-   test de diagnostic plus que comme solution.
+4. **Décocher EMI** : il est déclaré **optionnel** dans le pack depuis la 1.1.0, justement pour ça.
+   Au premier lancement, packwiz-installer affiche une fenêtre de choix des mods optionnels — il
+   suffit d'y décocher EMI. Ne pas le désactiver depuis l'onglet *Mods* de Prism : packwiz le
+   retéléchargerait au lancement suivant.
+
+**Mesuré sur un cas réel (2026-10-11)** : entre la fin de la synchronisation des configs et le
+message `[EMI] Recipes synchronized`, il s'écoule **15,8 secondes** sur la machine concernée —
+un Ryzen 7 3700X avec 16 Go alloués, donc pas une machine lente. En solo, la même étape prend le
+même temps, mais aucun minuteur ne court : c'est pour ça que le solo passe et le serveur non.
+EMI pèse à lui seul **9,5 s** de ce budget (`Reloaded EMI in 9581ms`). Le décocher suffit en général
+à repasser sous les 15 secondes.
 
 ## Déployer le serveur (OMGServ)
 
