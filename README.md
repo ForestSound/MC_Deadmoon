@@ -108,9 +108,13 @@ distance**, avec leur nom et leur dimension.
 Côté jeu, une seule personne crée le groupe, les autres rejoignent :
 
 ```
-/opac party create
-/opac party invite <pseudo>      ← la personne invitée tape ensuite /opac party join <pseudo>
+/oparties create
+/oparties invite <pseudo>      ← la personne invitée tape ensuite /oparties join <ton_pseudo>
 ```
+
+Attention, le mod expose **deux racines de commandes distinctes** : `/oparties` pour les groupes,
+`/opac` pour les revendications et la configuration. `/opac party` n'existe pas. Si `/oparties`
+n'est pas reconnu en jeu, le mod n'est pas chargé côté serveur.
 
 Le mod apporte **aussi un système de revendication de chunks** (protection contre le griefing),
 actif par défaut. Pour une guilde entre gens de confiance, ça peut être du bruit inutile. Pour le
