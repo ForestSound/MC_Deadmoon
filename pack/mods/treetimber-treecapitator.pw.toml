@@ -1,0 +1,13 @@
+name = "TreeTimber"
+filename = "treetimber-1.0.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/fhTDuo6c/versions/DmaQZh2q/treetimber-1.0.1.jar"
+hash-format = "sha512"
+hash = "c2b742fcc694a8ab32d33e426589dc66fb48aa21bb04cd94d25f83cc04931a1225f13486df6b8685636ec46e77f55354d1884b169cf4dcbabbd4b63726b8059e"
+
+[update]
+[update.modrinth]
+mod-id = "fhTDuo6c"
+version = "DmaQZh2q"

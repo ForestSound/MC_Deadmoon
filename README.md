@@ -1,7 +1,8 @@
 # Minecraft Deadmoon
 
 Modpack Minecraft **1.21.1** / **NeoForge 21.1.257**, géré avec [packwiz](https://packwiz.infra.link/).
-Thème : automatisation Create, cuisine & agriculture, exploration de structures. **45 mods.**
+Thème : automatisation Create, cuisine & agriculture, décoration, exploration de structures.
+**92 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
 
 **Serveur** : `mcdeadmoon.omgserv.net:10023`
 **URL du pack** (lue par l'installeur packwiz) :
@@ -27,19 +28,16 @@ Régénération : `.venv/bin/python docs/guide.py` (nécessite reportlab).
 
 `dist/Minecraft-Deadmoon-Prism.zip` s'importe dans Prism par simple glisser-déposer. Il contient
 `mmc-pack.json` (1.21.1 + NeoForge 21.1.257), `instance.cfg` (mémoire 6 Go et commande pre-lancement
-déjà réglées) et le bootstrap packwiz. **Les mods n'y sont pas** : ils se téléchargent au premier
-lancement, ce qui garde la mise à jour automatique et ramène le fichier à 89 Ko au lieu de 215 Mo.
+déjà réglées), le bootstrap packwiz et `config/iris.properties`. **Les mods n'y sont pas** : ils se
+téléchargent au premier lancement, ce qui garde la mise à jour automatique et ramène le fichier à
+89 Ko au lieu de 300 Mo.
 
 Côté joueur·euse : installer [Prism Launcher](https://prismlauncher.org/download/windows/) →
 ajouter son compte Microsoft → glisser le zip sur la fenêtre → double-cliquer sur l'instance.
-Aucune étape technique.
+Aucune étape technique. *Import validé sous Windows (octobre 2026).*
 
-Ce zip n'a pas besoin d'être régénéré quand le pack change : il ne contient que la configuration,
-jamais la liste des mods.
-
-> ⚠️ L'import de ce zip n'a pas encore été testé sur une vraie installation Windows. Le format a été
-> vérifié contre les métadonnées de Prism (`net.neoforged 21.1.257` exige bien `net.minecraft 1.21.1`),
-> mais fais-le essayer par une personne avant diffusion générale.
+Ce zip n'a besoin d'être régénéré que si la **configuration** change (mémoire, version de NeoForge,
+shader présélectionné). Ajouter ou retirer un mod ne le concerne pas.
 
 ### Variante : configuration manuelle dans Prism
 
@@ -60,8 +58,9 @@ Si l'import échoue, la même chose à la main :
 
 **Ce que fait ce `.jar`** : il se dépose une fois et ne change jamais. À chaque lancement, il
 télécharge (et met à jour tout seul) `packwiz-installer.jar` à côté de lui, puis lit le `pack.toml`
-servi par GitHub. GitHub n'héberge que la **liste** des mods — une centaine de Ko de `.toml`. Les
-jars viennent de Modrinth et CurseForge, et seuls ceux dont l'empreinte a changé sont retéléchargés.
+servi par GitHub. GitHub n'héberge que la **liste** des mods — quelques centaines de Ko de `.toml`.
+Les jars viennent de Modrinth et CurseForge, et seuls ceux dont l'empreinte a changé sont
+retéléchargés.
 
 ### Variante : launcher CurseForge
 
@@ -69,15 +68,34 @@ Le launcher CurseForge **ne sait pas lire un pack packwiz** : pas de commande pr
 mise à jour automatique. Il faut diffuser un zip, à refaire à chaque modification du pack.
 
 1. Générer le zip : `cd pack && packwiz curseforge export`
-   → `build/Minecraft-Deadmoon-1.0.0-curseforge.zip` (191 Mo)
 2. CurseForge App → *Minecraft* → *Créer un profil personnalisé* → **Importer** → choisir le zip
 
-Sur les 45 mods, seuls 2 sont référencés par identifiant CurseForge ; les 43 autres sont embarqués
-comme jars dans le zip, d'où les 191 Mo. Chaque mise à jour = un transfert de 191 Mo et une
-réinstallation manuelle pour tout le monde.
+Chaque mise à jour = un transfert de ~300 Mo et une réinstallation manuelle pour tout le monde.
 
-Le `.mrpack` (2 Mo) est un troisième recours, importable dans Prism ou l'app Modrinth — mais pas dans
-le launcher CurseForge, et sans mise à jour automatique.
+Le `.mrpack` (`build/Minecraft-Deadmoon-1.1.0.mrpack`, 2,5 Mo) est un troisième recours, importable
+dans Prism ou l'app Modrinth — mais pas dans le launcher CurseForge, et sans mise à jour automatique.
+
+## Shaders
+
+Le pack embarque **Iris** (le moteur de shaders) et **Sodium** (dont Iris dépend), plus trois
+shaderpacks qui arrivent automatiquement dans `shaderpacks/` chez tout le monde, exactement comme les
+mods :
+
+| Shaderpack | Version | Pour qui |
+|---|---|---|
+| Complementary Reimagined | r5.9.3 | présélectionné — rendu proche du vanilla, le mieux optimisé |
+| Complementary Unbound | r5.9.3 | plus poussé visuellement, plus gourmand |
+| BSL | v10.1.8 | style très marqué, le plus gourmand des trois |
+
+**Les shaders sont livrés désactivés.** Ils coûtent cher en images par seconde et toute la guilde
+n'a pas la même machine : chacun·e les allume quand il ou elle veut, via *Options… → Video Settings →
+Shader Packs* → cocher **Shader Pack Enabled**.
+
+Complementary Reimagined est déjà sélectionné pour les nouvelles installations (c'est le rôle de
+`config/iris.properties` dans le zip Prism). Les personnes déjà installées avant la 1.1.0 n'auront pas
+cette présélection : la liste des trois shaderpacks sera bien là, il n'y aura juste rien de coché.
+
+Les trois `.pw.toml` de `pack/shaderpacks/` portent `side = "client"` : le serveur ne les reçoit pas.
 
 ## Rejoindre le serveur
 
@@ -102,7 +120,7 @@ crée vide à son premier démarrage.
 racine du serveur
 ├── libraries/
 ├── logs/
-├── mods/              ← les 41 jars ici, en vrac
+├── mods/              ← les 84 jars ici, en vrac
 ├── world/
 ├── eula.txt
 └── server.properties  ← ce fichier identifie la racine
@@ -112,21 +130,61 @@ Dans l'ordre :
 
 1. **Arrêter le serveur.** Un serveur allumé réécrit ses fichiers en s'arrêtant et écraserait l'upload.
 2. **Supprimer `world/`** (ainsi que `world_nether/` et `world_the_end/` s'ils existent). Terralith
-   remplace la génération du terrain : sur un monde déjà généré en vanilla, on obtient une zone de
-   spawn vanilla, des biomes Terralith autour, et des murs de terrain à la frontière.
-3. **Vider `mods/`**, puis envoyer les **41 jars** de `build/server-mods.zip` (216 Mo décompressés).
+   et Biomes O' Plenty remplacent la génération du terrain : sur un monde déjà généré en vanilla, on
+   obtient une zone de spawn vanilla, des biomes modés autour, et des murs de terrain à la frontière.
+3. **Vider `mods/`**, puis envoyer les **84 jars** de `build/server-mods.zip` (306 Mo décompressés).
    Les jars vont **directement** dans `mods/`, sans sous-dossier : extraire le zip depuis la racine,
    pas depuis l'intérieur de `mods/`, sinon on obtient `mods/mods/` et le serveur démarre sans aucun
    mod — sans erreur visible, jusqu'à ce que tout le monde soit rejeté en « Outdated client ».
-4. **Mémoire : 6 Go minimum** (8 Go confortable). Dans `server.properties` : `view-distance=8` et
-   `simulation-distance=6`. Au-delà, le serveur s'écroule dès que trois personnes s'éloignent.
+4. **Mémoire : 6 Go minimum** (8 Go confortable à 92 mods). Dans `server.properties` :
+   `view-distance=8` et `simulation-distance=6`. Au-delà, le serveur s'écroule dès que trois
+   personnes s'éloignent.
 5. **Démarrer et surveiller la console** jusqu'à `Done (XXXs)! For help, type "help"`. Compter 3 à
    10 minutes au lieu de quelques secondes : cette lenteur est le signe que les mods se chargent.
    En cas de plantage, la console nomme le mod fautif.
 6. **Tester soi-même** avant d'annoncer l'adresse à la guilde.
 
-**41 jars côté serveur contre 45 côté client, c'est normal** : EMI, Jade et les deux Xaero's sont
-purement client, `build-server.sh` les exclut (ils portent `side = "client"` dans leur `.pw.toml`).
+**84 jars côté serveur contre 92 côté client, c'est normal** : EMI, Jade, Iris, Sodium, Athena,
+Nemo's Inventory Sorting et les deux Xaero's sont purement client, `build-server.sh` les exclut (ils
+portent `side = "client"` dans leur `.pw.toml`). Les shaderpacks sont exclus pour la même raison.
+
+## Mettre à jour le serveur après une modification du pack
+
+Le client se met à jour tout seul, le serveur **non**. Et c'est le serveur qui doit partir devant :
+une personne sous Prism aura les nouveaux mods au lancement suivant, et se fera rejeter si le serveur
+est resté en arrière.
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+cd ~/dev/minecraft-modpack
+
+# 1. modifier le pack (ajout, retrait, mise à jour), puis :
+cd pack && packwiz refresh && cd ..
+
+# 2. reconstruire le dossier mods/ du serveur
+./build-server.sh          # → build/server/mods/ + build/server-mods.zip
+
+# 3. publier la nouvelle liste pour la guilde
+git add -A && git commit -m "..." && git push
+```
+
+Ensuite, sur le panel OMGServ :
+
+1. **Prévenir la guilde** et demander à tout le monde de quitter le serveur.
+2. **Arrêter le serveur** depuis le panel, et attendre que le statut passe réellement à l'arrêt.
+3. **Sauvegarder `world/`** (téléchargement FTP, ou snapshot si le panel en propose). À faire même
+   quand la mise à jour paraît anodine : un mod retiré emporte ses blocs du monde.
+4. **Vider `mods/` entièrement**, puis y envoyer les jars de `build/server-mods.zip`. Ne pas se
+   contenter d'ajouter les nouveaux : les anciennes versions resteraient à côté des nouvelles et
+   NeoForge refuserait de démarrer sur un doublon de modid.
+5. **Redémarrer** et attendre `Done (XXXs)!` dans la console.
+6. **Se connecter soi-même** pour vérifier, puis annoncer que c'est ouvert.
+
+Si quelqu'un se fait rejeter en « Outdated server » après ça, c'est que le serveur n'a pas la même
+liste : vérifier que `mods/` contient bien le même nombre de jars que `build/server/mods/`.
+
+Pour un **retrait** de mod, prévoir l'étape de plus : supprimer un mod qui a posé des blocs laisse
+des erreurs de chargement de chunks. `world/` sauvegardé à l'étape 3, c'est le filet.
 
 ## Maintenance du pack
 
@@ -141,19 +199,20 @@ packwiz remove <nom>            # retirer un mod
 packwiz update --all            # mettre tout à jour
 packwiz refresh                 # reconstruire l'index (après édition manuelle)
 cd .. && ./build-server.sh      # regénérer le zip serveur
-git add -A && git commit -m "..." && git push   # publier → la guilde l'a au prochain lancement
 ```
 
-- `add-mods.sh` : réinstalle toute la liste de zéro (idempotent).
-- Un mod **client only** : ajouter `side = "client"` dans son `pack/mods/<mod>.pw.toml`, puis `packwiz refresh`.
+- `add-mods.sh` : réinstalle la liste d'origine de zéro (idempotent).
+  `add-mods-v2.sh` : la deuxième vague (décoration, Farmer's Delight addons, Iris/Sodium).
+- Un mod **client only** : ajouter `side = "client"` dans son `pack/mods/<mod>.pw.toml`, puis
+  `packwiz refresh`.
 - `packwiz update` peut se tromper quand un projet versionne mal ses sorties (vu sur Terralith, qui
-  restait en 2.5.8 alors que la 2.6.2 existait). En cas de doute :
+  restait en 2.5.8 alors que la 2.6.2 existait, et sur TreeTimber). En cas de doute :
   `packwiz modrinth add --project-id <id> --version-id <id>`.
-
-**Ordre d'une mise à jour**, à respecter : `./build-server.sh` → arrêter le serveur → sauvegarder le
-monde → vider `mods/` → envoyer les nouveaux jars → redémarrer → prévenir la guilde. Les joueur·euses
-sous Prism se mettent à jour seuls au lancement suivant, mais si le serveur n'est pas à jour **avant**
-eux, ils se retrouvent bloqués dehors.
+- **Vérifier chaque ajout CurseForge** : `packwiz curseforge add` ne garantit pas le bon couple
+  loader/version. Christmas Delight est ainsi arrivé en jar 1.20.1 et a dû être retiré.
+- **Un mod CurseForge dont l'auteur a coupé la distribution tierce est inutilisable ici** : packwiz
+  ne peut pas le télécharger pour la guilde. Le symptôme apparaît à l'export
+  (`Found N manual downloads`). Rice Delight est dans ce cas, d'où son absence.
 
 ## Contenu
 
@@ -163,21 +222,42 @@ Create Crafts & Additions · Steam 'n' Rails *(port NeoForge non officiel — se
 Create Confectionery
 
 ### Cuisine & agriculture
-Farmer's Delight · Expanded Delight · Ube's Delight · Brewin' and Chewin' · Croptopia *(CurseForge)* ·
+Farmer's Delight · Expanded Delight · ExtraDelight · Ube's Delight · Brewin' and Chewin' ·
+Croptopia *(CurseForge)* · Aquaculture 2 + Aquaculture Delight ·
 [Let's Do] Farm & Charm *(socle requis en 1.21.1)* · Vinery · Bakery · Brewery · Candlelight
 
+### Farmer's Delight — addons de cuisine du monde
+Teyvat's Delight · Kazakh Delight · Ribbe Delight · Roll Delight · Veggies Delight ·
+Ramadan Delight · Fungi Delight · New Year's Delight
+
+### Décoration & construction
+Les 7 **Macaw's** (Doors, Furniture, Fences and Walls, Bridges, Stairs, Paintings, Lights and Lamps) ·
+Chipped · Amendments · Diagonal Fences · Diagonal Walls · Diagonal Windows · Simple Hats
+
 ### Structures & monde
-Terralith **2.6.2** *(version NeoForge dédiée)* · les 10 **YUNG's Better** (Dungeons, Mineshafts, Strongholds, Desert Temples, Witch Huts, Ocean Monuments,
-Nether Fortresses, End Island, Jungle Temples) + YUNG's API · When Dungeons Arise · Dungeons and Taverns
+Terralith **2.6.2** *(version NeoForge dédiée)* · Biomes O' Plenty · les 10 **YUNG's Better**
+(Dungeons, Mineshafts, Strongholds, Desert Temples, Witch Huts, Ocean Monuments, Nether Fortresses,
+End Island, Jungle Temples) + YUNG's API · When Dungeons Arise · Dungeons and Taverns · Explorify ·
+Aures - Farmers Structures · Realm RPG: Treasure Balloons
+
+### Magie & progression
+Ars Nouveau · Gobber *(CurseForge)*
 
 ### Exploration & confort
-Explorer's Compass · Nature's Compass · Waystones · Xaero's Minimap & World Map *(client)*
+Explorer's Compass · Nature's Compass · Waystones · Sophisticated Backpacks · Comforts · Corpse ·
+TrashSlot · TreeTimber · Xaero's Minimap & World Map *(client)* ·
+Nemo's Inventory Sorting *(client)*
 
 ### Créatures
 Mowzie's Mobs · L_Ender's Cataclysm
 
-### Utilitaires
-EMI *(client)* · Jade *(client)*
+### Rendu & utilitaires
+Iris Shaders *(client)* · Sodium *(client)* · EMI *(client)* · Jade *(client)*
+
+Pas de JEI : **EMI** remplit le même rôle et faire tourner les deux donne deux interfaces de recettes
+superposées. À dire si quelqu'un préfère JEI, le passage est trivial.
 
 ### Dépendances tirées automatiquement
-Architectury API · Balm · Curios API · EpheroLib · Geckolib · Lionfish-API · Lithostitched *(Terralith 2.6.2)*
+Architectury API · Balm · Curios API · Accessories · Athena *(client)* · EpheroLib · Geckolib ·
+GlitchCore · Lionfish-API · Lithostitched *(Terralith 2.6.2)* · Moonlight Lib · owo-lib ·
+Puzzles Lib · Resourceful Lib · Sophisticated Core · TerraBlender

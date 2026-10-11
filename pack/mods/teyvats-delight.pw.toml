@@ -1,0 +1,13 @@
+name = "Teyvat's Delight"
+filename = "teyvatdelight-1.1.10.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/y2yKs7iH/versions/6V1vLz5o/teyvatdelight-1.1.10.jar"
+hash-format = "sha512"
+hash = "97c7eeb965727fc9ca4447e786a3a2d59380a85f127ff064ec6ff71ad5c75a40384384ed55e3ef88eff374c261d777fdfbd8804cc2558d333a4fe74eb4fd7d27"
+
+[update]
+[update.modrinth]
+mod-id = "y2yKs7iH"
+version = "6V1vLz5o"

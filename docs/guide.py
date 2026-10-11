@@ -98,7 +98,7 @@ def page_frame(c, kicker, title, num):
     c.setStrokeColor(RULE); c.setLineWidth(0.8); c.line(M, y, W - M, y)
     # pied de page
     c.setFont("Fira", 7.6); c.setFillColor(MUTED)
-    c.drawString(M, 12 * mm, "Minecraft Deadmoon · guide v4.0")
+    c.drawString(M, 12 * mm, "Minecraft Deadmoon · guide v4.1")
     c.drawRightString(W - M, 12 * mm, str(num))
     return y - 11 * mm
 
@@ -164,16 +164,16 @@ def page_1(c):
     c.setFont("Fira-Black", 32); c.setFillColor(INK)
     c.drawString(M - 1, y, "Minecraft Deadmoon")
     y -= 8 * mm
-    para(c, "Quatre étapes pour installer le pack et nous rejoindre",
+    para(c, "Cinq étapes pour installer le pack et nous rejoindre",
          st("Fira-Light", 12.5, 17, MUTED), M, y, COL)
     y -= 13 * mm
     c.setStrokeColor(RULE); c.setLineWidth(0.8); c.line(M, y, W - M, y)
     c.setFont("Fira", 7.6); c.setFillColor(MUTED)
-    c.drawString(M, 12 * mm, "Minecraft Deadmoon · guide v4.0")
+    c.drawString(M, 12 * mm, "Minecraft Deadmoon · guide v4.1")
     c.drawRightString(W - M, 12 * mm, "1")
     y -= 10 * mm
 
-    y = para(c, "Le pack ajoute <b>45 mods</b> à Minecraft. On l’installe avec <b>Prism Launcher</b>, "
+    y = para(c, "Le pack ajoute <b>92 mods</b> à Minecraft. On l’installe avec <b>Prism Launcher</b>, "
                 "un lanceur gratuit qui remplace celui de Minecraft — pas besoin de l’avoir déjà. "
                 "Tout est préparé dans un fichier à importer : rien à régler, rien à copier à la main. "
                 "Compte un quart d’heure, surtout de l’attente.",
@@ -214,7 +214,7 @@ def page_1(c):
 def page_2(c):
     y = page_frame(c, "SUITE ET FIN", "Lancer et nous rejoindre", 2)
     y = step(c, 4, "Double-clique sur l’instance « Minecraft Deadmoon »",
-             "Prism installe Minecraft, le moteur de mods NeoForge, puis les 45 mods. "
+             "Prism installe Minecraft, le moteur de mods NeoForge, puis les 92 mods. "
              "Le premier lancement prend <b>5 à 10 minutes</b> et affiche beaucoup de lignes de texte : "
              "c’est normal, laisse faire. Les fois suivantes seront rapides.", M, y, COL)
 
@@ -254,7 +254,8 @@ def page_2(c):
                 "recettes, du vin, de la bière) · <b>un monde refait</b> (paysages, donjons, mines et "
                 "temples repensés de fond en comble) · <b>créatures</b> (des boss sérieux, n’y va pas "
                 "en armure de cuir) · <b>confort</b> (balises de téléportation, boussoles, carte, "
-                "livre de recettes).", st("Fira", 9.6, 14), M, y, COL)
+                "livre de recettes) · <b>shaders</b> (trois packs déjà installés, éteints par défaut : "
+                "Options… → Video Settings → Shader Packs).", st("Fira", 9.6, 14), M, y, COL)
 
     y -= 5 * mm
     para(c, "Des questions ? Demande à Gordorak. Le pack et ce guide vivent sur "

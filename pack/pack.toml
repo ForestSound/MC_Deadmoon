@@ -1,12 +1,12 @@
 name = "Minecraft Deadmoon"
 author = "Gordorak"
-version = "1.0.0"
+version = "1.1.0"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "27d765cd0a344e243e13b177640739de3e95dfdf2acb9b32028ec4870f742fe4"
+hash = "e1a42bf9b08fa997291651d5743d0768ce6842e0542aac33d1a82216e0ce4993"
 
 [versions]
 minecraft = "1.21.1"

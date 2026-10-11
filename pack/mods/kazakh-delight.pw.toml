@@ -1,0 +1,13 @@
+name = "Kazakh Delight (A Farmer's Delight Add-on)"
+filename = "kazakh_delight-1.0.0.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/E4ENtDuY/versions/uEMNbedE/kazakh_delight-1.0.0.jar"
+hash-format = "sha512"
+hash = "21e756e3852b26b89f76ea226d920f75d7d9785ca025d71560ae5ace3615130c9851611f78cfb82bb19b48d08cb4d643608773758f5f64be9aa114231e12a1c6"
+
+[update]
+[update.modrinth]
+mod-id = "E4ENtDuY"
+version = "uEMNbedE"
