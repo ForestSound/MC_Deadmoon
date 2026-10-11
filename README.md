@@ -2,7 +2,7 @@
 
 Modpack Minecraft **1.21.1** / **NeoForge 21.1.257**, géré avec [packwiz](https://packwiz.infra.link/).
 Thème : automatisation Create, cuisine & agriculture, décoration, exploration de structures.
-**90 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
+**91 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
 Liste exhaustive avec les numéros de version : **[MODS.md](MODS.md)**.
 
 **Serveur** : `mcdeadmoon.omgserv.net:10023`
@@ -98,6 +98,35 @@ cette présélection : la liste des trois shaderpacks sera bien là, il n'y aura
 
 Les trois `.pw.toml` de `pack/shaderpacks/` portent `side = "client"` : le serveur ne les reçoit pas.
 
+## Voir la guilde sur la carte
+
+Les cartes Xaero's n'affichent les autres joueur·euses que dans la portée d'affichage des entités —
+une centaine de blocs. **Open Parties and Claims** (même auteur que Xaero's) lève cette limite : les
+membres d'un même groupe apparaissent sur la minimap et la carte du monde **à n'importe quelle
+distance**, avec leur nom et leur dimension.
+
+Côté jeu, une seule personne crée le groupe, les autres rejoignent :
+
+```
+/opac party create
+/opac party invite <pseudo>      ← la personne invitée tape ensuite /opac party join <pseudo>
+```
+
+Le mod apporte **aussi un système de revendication de chunks** (protection contre le griefing),
+actif par défaut. Pour une guilde entre gens de confiance, ça peut être du bruit inutile. Pour le
+désactiver en gardant les groupes et la carte, dans le fichier `openpartiesandclaims-server.toml`
+généré au premier démarrage (il est dans `config/`, ou dans `world/serverconfig/` selon la façon
+dont NeoForge l'enregistre) :
+
+```toml
+[claims]
+    enabled = false
+[parties]
+    enabled = true
+```
+
+Ce réglage est **côté serveur uniquement** : rien à faire pour la guilde, et packwiz n'y touche pas.
+
 ## Rejoindre le serveur
 
 Dans le jeu : *Multijoueur* → *Ajouter un serveur* → adresse `mcdeadmoon.omgserv.net:10023`.
@@ -121,7 +150,7 @@ crée vide à son premier démarrage.
 racine du serveur
 ├── libraries/
 ├── logs/
-├── mods/              ← les 82 jars ici, en vrac
+├── mods/              ← les 83 jars ici, en vrac
 ├── world/
 ├── eula.txt
 └── server.properties  ← ce fichier identifie la racine
@@ -133,11 +162,11 @@ Dans l'ordre :
 2. **Supprimer `world/`** (ainsi que `world_nether/` et `world_the_end/` s'ils existent). Terralith
    remplace la génération du terrain : sur un monde déjà généré en vanilla, on obtient une zone de
    spawn vanilla, des biomes Terralith autour, et des murs de terrain à la frontière.
-3. **Vider `mods/`**, puis envoyer les **82 jars** de `build/server-mods.zip` (288 Mo décompressés).
+3. **Vider `mods/`**, puis envoyer les **83 jars** de `build/server-mods.zip` (290 Mo décompressés).
    Les jars vont **directement** dans `mods/`, sans sous-dossier : extraire le zip depuis la racine,
    pas depuis l'intérieur de `mods/`, sinon on obtient `mods/mods/` et le serveur démarre sans aucun
    mod — sans erreur visible, jusqu'à ce que tout le monde soit rejeté en « Outdated client ».
-4. **Mémoire : 6 Go minimum** (8 Go confortable à 90 mods). Dans `server.properties` :
+4. **Mémoire : 6 Go minimum** (8 Go confortable à 91 mods). Dans `server.properties` :
    `view-distance=8` et `simulation-distance=6`. Au-delà, le serveur s'écroule dès que trois
    personnes s'éloignent.
 5. **Démarrer et surveiller la console** jusqu'à `Done (XXXs)! For help, type "help"`. Compter 3 à
@@ -145,7 +174,7 @@ Dans l'ordre :
    En cas de plantage, la console nomme le mod fautif.
 6. **Tester soi-même** avant d'annoncer l'adresse à la guilde.
 
-**82 jars côté serveur contre 90 côté client, c'est normal** : EMI, Jade, Iris, Sodium, Athena,
+**83 jars côté serveur contre 91 côté client, c'est normal** : EMI, Jade, Iris, Sodium, Athena,
 Nemo's Inventory Sorting et les deux Xaero's sont purement client, `build-server.sh` les exclut (ils
 portent `side = "client"` dans leur `.pw.toml`). Les shaderpacks sont exclus pour la même raison.
 
@@ -252,6 +281,7 @@ Ars Nouveau · Relics
 
 ### Exploration & confort
 Explorer's Compass · Nature's Compass · Waystones · Lootr *(coffres à butin individuel)* ·
+Open Parties and Claims *(voir la guilde sur la carte Xaero's)* ·
 Sophisticated Backpacks · Comforts · Corpse ·
 TrashSlot · TreeTimber · Xaero's Minimap & World Map *(client)* ·
 Nemo's Inventory Sorting *(client)*
