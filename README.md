@@ -2,7 +2,7 @@
 
 Modpack Minecraft **1.21.1** / **NeoForge 21.1.257**, géré avec [packwiz](https://packwiz.infra.link/).
 Thème : automatisation Create, cuisine & agriculture, décoration, exploration de structures.
-**91 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
+**92 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
 Liste exhaustive avec les numéros de version : **[MODS.md](MODS.md)**.
 
 **Serveur** : `mcdeadmoon.omgserv.net:10023`
@@ -131,6 +131,45 @@ dont NeoForge l'enregistre) :
 
 Ce réglage est **côté serveur uniquement** : rien à faire pour la guilde, et packwiz n'y touche pas.
 
+## Chat vocal
+
+**Simple Voice Chat** est dans le pack : chat vocal de proximité, sans Discord, sans compte, sans
+rien à installer de plus. La guilde l'a automatiquement.
+
+**Mais il demande un port UDP dédié côté serveur, et c'est le seul vrai obstacle.** Le mod ouvre sa
+propre écoute UDP — par défaut le **24454** — indépendamment du port du jeu. Sur un hébergement
+mutualisé comme OMGServ, ce port doit être explicitement alloué.
+
+Dans le panel, cherche un port secondaire déjà attribué à ton serveur (beaucoup d'hébergeurs en
+donnent un ou deux en plus du port principal). Puis dans `config/voicechat/voicechat-server.properties`,
+généré au premier démarrage avec le mod :
+
+```properties
+port=24454
+```
+
+Remplace `24454` par le port alloué. Les joueur·euses n'ont rien à régler : le serveur leur annonce
+le bon port à la connexion.
+
+> L'option `port=-1` fait réutiliser le port du jeu. **À éviter** : la documentation du mod précise
+> que ce port sert aussi à la requête serveur en UDP, et que l'utiliser peut faire planter le serveur.
+
+Si OMGServ ne donne aucun port UDP supplémentaire, le mod se charge sans erreur mais le vocal ne
+connecte pas — l'icône reste barrée. Dans ce cas il faut retirer le mod, ou passer par Discord.
+
+## Nuits : pas besoin de mod
+
+**Morpheus n'existe plus** au-delà de 1.16 et n'a plus de raison d'être : depuis Minecraft 1.17, le
+comportement est une règle de jeu vanilla. Sur le serveur, en opérateur :
+
+```
+/gamerule playersSleepingPercentage 1
+```
+
+Une seule personne qui dort suffit alors à passer la nuit, et le chat affiche le décompte des
+dormeur·euses. **Comforts**, déjà dans le pack, ajoute les sacs de couchage : on passe la nuit sans
+avoir à poser un lit ni à changer son point de réapparition.
+
 ## Rejoindre le serveur
 
 Dans le jeu : *Multijoueur* → *Ajouter un serveur* → adresse `mcdeadmoon.omgserv.net:10023`.
@@ -154,7 +193,7 @@ crée vide à son premier démarrage.
 racine du serveur
 ├── libraries/
 ├── logs/
-├── mods/              ← les 83 jars ici, en vrac
+├── mods/              ← les 84 jars ici, en vrac
 ├── world/
 ├── eula.txt
 └── server.properties  ← ce fichier identifie la racine
@@ -166,11 +205,11 @@ Dans l'ordre :
 2. **Supprimer `world/`** (ainsi que `world_nether/` et `world_the_end/` s'ils existent). Terralith
    remplace la génération du terrain : sur un monde déjà généré en vanilla, on obtient une zone de
    spawn vanilla, des biomes Terralith autour, et des murs de terrain à la frontière.
-3. **Vider `mods/`**, puis envoyer les **83 jars** de `build/server-mods.zip` (290 Mo décompressés).
+3. **Vider `mods/`**, puis envoyer les **84 jars** de `build/server-mods.zip` (295 Mo décompressés).
    Les jars vont **directement** dans `mods/`, sans sous-dossier : extraire le zip depuis la racine,
    pas depuis l'intérieur de `mods/`, sinon on obtient `mods/mods/` et le serveur démarre sans aucun
    mod — sans erreur visible, jusqu'à ce que tout le monde soit rejeté en « Outdated client ».
-4. **Mémoire : 6 Go minimum** (8 Go confortable à 91 mods). Dans `server.properties` :
+4. **Mémoire : 6 Go minimum** (8 Go confortable à 92 mods). Dans `server.properties` :
    `view-distance=8` et `simulation-distance=6`. Au-delà, le serveur s'écroule dès que trois
    personnes s'éloignent.
 5. **Démarrer et surveiller la console** jusqu'à `Done (XXXs)! For help, type "help"`. Compter 3 à
@@ -178,7 +217,7 @@ Dans l'ordre :
    En cas de plantage, la console nomme le mod fautif.
 6. **Tester soi-même** avant d'annoncer l'adresse à la guilde.
 
-**83 jars côté serveur contre 91 côté client, c'est normal** : EMI, Jade, Iris, Sodium, Athena,
+**84 jars côté serveur contre 92 côté client, c'est normal** : EMI, Jade, Iris, Sodium, Athena,
 Nemo's Inventory Sorting et les deux Xaero's sont purement client, `build-server.sh` les exclut (ils
 portent `side = "client"` dans leur `.pw.toml`). Les shaderpacks sont exclus pour la même raison.
 
@@ -285,7 +324,7 @@ Ars Nouveau · Relics
 
 ### Exploration & confort
 Explorer's Compass · Nature's Compass · Waystones · Lootr *(coffres à butin individuel)* ·
-Open Parties and Claims *(voir la guilde sur la carte Xaero's)* ·
+Open Parties and Claims *(voir la guilde sur la carte Xaero's)* · Simple Voice Chat ·
 Sophisticated Backpacks · Comforts · Corpse ·
 TrashSlot · TreeTimber · Xaero's Minimap & World Map *(client)* ·
 Nemo's Inventory Sorting *(client)*

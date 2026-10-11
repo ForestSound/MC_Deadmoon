@@ -21,7 +21,7 @@ MODRINTH=(
   sophisticated-core sophisticated-backpacks
   aquaculture ars-nouveau
   resourceful-lib puzzles-lib moonlight athena-ctm owo-lib accessories
-  sodium iris treetimber-treecapitator relics-mod lootr open-parties-and-claims
+  sodium iris treetimber-treecapitator relics-mod lootr open-parties-and-claims simple-voice-chat
 )
 # rice-delight : distribution tierce coupee par l'auteur, packwiz ne peut pas le servir.
 # christmas-delight : aucun build 1.21.1 NeoForge (le jar CurseForge est en 1.20.1).

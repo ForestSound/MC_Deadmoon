@@ -2,8 +2,8 @@
 
 Pack **1.1.0** · Minecraft **1.21.1** · NeoForge **21.1.257** · généré le 2026-10-11.
 
-**91 mods** et **3 shaderpacks**. 8 mods sont purement client :
-le serveur en reçoit **83**.
+**92 mods** et **3 shaderpacks**. 8 mods sont purement client :
+le serveur en reçoit **84**.
 
 Ce fichier est généré par `gen-modlist.py` à partir des métadonnées packwiz de `pack/`.
 Ne pas l'éditer à la main : relancer `python3 gen-modlist.py` après chaque modification du pack.
@@ -82,6 +82,7 @@ Retour au [README](README.md).
 | [Roll Delight](https://modrinth.com/project/roll-delight) | `1.3.0` | client + serveur | Modrinth |
 | [ShatterLib | OctoLib](https://modrinth.com/project/shatterbyte-lib) | `0.6.2` | client + serveur | Modrinth |
 | [Simple Hats](https://modrinth.com/project/simple-hats) | `1.21.1-Neo-0.4.0` | client + serveur | Modrinth |
+| [Simple Voice Chat](https://modrinth.com/project/simple-voice-chat) | `neoforge-1.21.1-2.6.24` | client + serveur | Modrinth |
 | [Sodium](https://modrinth.com/project/sodium) | `mc1.21.1-0.8.13-neoforge` | **client seul** | Modrinth |
 | [Sophisticated Backpacks](https://modrinth.com/project/sophisticated-backpacks) | `1.21.1-3.26.9.2195` | client + serveur | Modrinth |
 | [Sophisticated Core](https://modrinth.com/project/sophisticated-core) | `1.21.1-1.5.7.2381` | client + serveur | Modrinth |
