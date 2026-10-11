@@ -171,11 +171,6 @@ hash = "35779b39ddc06059ec483b33de2ecfdc3adb95c0a49e69b6701fb0024827e2f5"
 metafile = true
 
 [[files]]
-file = "mods/gobber.pw.toml"
-hash = "cac1dc3bc87f45638f37828d1099e31943e119e4766f953ae7b88a2ce4c33415"
-metafile = true
-
-[[files]]
 file = "mods/iris.pw.toml"
 hash = "db1c1e6382878b78e994dba1b9026935f8d1c5ca685c89d2437858e0a0dcab58"
 metafile = true
@@ -358,11 +353,6 @@ metafile = true
 [[files]]
 file = "mods/terralith.pw.toml"
 hash = "81c5c05f9ed4c07b9f027ff6c421939bb04e476075091f135d34aaa05af1f950"
-metafile = true
-
-[[files]]
-file = "mods/teyvats-delight.pw.toml"
-hash = "941839a18e956ea7adc056cc3e340a33df25ae0ae179b66bbceda88c4db86795"
 metafile = true
 
 [[files]]

@@ -2,8 +2,8 @@
 
 Pack **1.1.0** · Minecraft **1.21.1** · NeoForge **21.1.257** · généré le 2026-10-11.
 
-**91 mods** et **3 shaderpacks**. 8 mods sont purement client :
-le serveur en reçoit **83**.
+**89 mods** et **3 shaderpacks**. 8 mods sont purement client :
+le serveur en reçoit **81**.
 
 Ce fichier est généré par `gen-modlist.py` à partir des métadonnées packwiz de `pack/`.
 Ne pas l'éditer à la main : relancer `python3 gen-modlist.py` après chaque modification du pack.
@@ -47,7 +47,6 @@ Retour au [README](README.md).
 | [Farmer's Delight](https://modrinth.com/project/farmers-delight) | `1.21.1-1.3.4` | client + serveur | Modrinth |
 | [Fungi Delight (A Farmer's Delight Add-on)](https://modrinth.com/project/fungi-delight) | `1.3` | client + serveur | Modrinth |
 | [Geckolib](https://modrinth.com/project/geckolib) | `4.9.3` | client + serveur | Modrinth |
-| [Gobber [NEOFORGE/FORGE]](https://www.curseforge.com/projects/301700) | `2.10.15` | client + serveur | CurseForge |
 | [Iris Shaders](https://modrinth.com/project/iris) | `1.8.14-beta.1+1.21.1-neoforge` | **client seul** | Modrinth |
 | [Jade 🔍](https://modrinth.com/project/jade) | `15.10.6+neoforge` | **client seul** | Modrinth |
 | [Kazakh Delight (A Farmer's Delight Add-on)](https://modrinth.com/project/kazakh-delight) | `1.0.0` | client + serveur | Modrinth |
@@ -86,7 +85,6 @@ Retour au [README](README.md).
 | [Sophisticated Core](https://modrinth.com/project/sophisticated-core) | `1.21.1-1.5.7.2381` | client + serveur | Modrinth |
 | [Steam 'n' Rails Neoforge](https://modrinth.com/project/create-steam-n-rails-1.21.1) | `0.3.0-beta.2+neoforge-mc1.21.1` | client + serveur | Modrinth |
 | [Terralith](https://modrinth.com/project/terralith) | `2.6.2` | client + serveur | Modrinth |
-| [Teyvat's Delight](https://modrinth.com/project/teyvats-delight) | `1.1.10` | client + serveur | Modrinth |
 | [TrashSlot](https://modrinth.com/project/trashslot) | `21.1.11+neoforge-1.21.1` | client + serveur | Modrinth |
 | [TreeTimber](https://modrinth.com/project/treetimber-treecapitator) | `1.0.1` | client + serveur | Modrinth |
 | [Ube's Delight](https://modrinth.com/project/ubes-delight) | `neoforge-1.21.1-0.4.15` | client + serveur | Modrinth |

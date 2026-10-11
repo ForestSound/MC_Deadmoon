@@ -173,7 +173,7 @@ def page_1(c):
     c.drawRightString(W - M, 12 * mm, "1")
     y -= 10 * mm
 
-    y = para(c, "Le pack ajoute <b>91 mods</b> à Minecraft. On l’installe avec <b>Prism Launcher</b>, "
+    y = para(c, "Le pack ajoute <b>89 mods</b> à Minecraft. On l’installe avec <b>Prism Launcher</b>, "
                 "un lanceur gratuit qui remplace celui de Minecraft — pas besoin de l’avoir déjà. "
                 "Tout est préparé dans un fichier à importer : rien à régler, rien à copier à la main. "
                 "Compte un quart d’heure, surtout de l’attente.",
@@ -214,7 +214,7 @@ def page_1(c):
 def page_2(c):
     y = page_frame(c, "SUITE ET FIN", "Lancer et nous rejoindre", 2)
     y = step(c, 4, "Double-clique sur l’instance « Minecraft Deadmoon »",
-             "Prism installe Minecraft, le moteur de mods NeoForge, puis les 91 mods. "
+             "Prism installe Minecraft, le moteur de mods NeoForge, puis les 89 mods. "
              "Le premier lancement prend <b>5 à 10 minutes</b> et affiche beaucoup de lignes de texte : "
              "c’est normal, laisse faire. Les fois suivantes seront rapides.", M, y, COL)
 

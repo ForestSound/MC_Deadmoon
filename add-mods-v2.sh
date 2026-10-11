@@ -12,7 +12,7 @@ MODRINTH=(
   diagonal-windows diagonal-fences diagonal-walls
   macaws-doors macaws-furniture macaws-fences-and-walls macaws-bridges
   macaws-stairs macaws-paintings macaws-lights-and-lamps
-  extradelight teyvats-delight kazakh-delight ribbe_delight
+  extradelight kazakh-delight ribbe_delight
   roll-delight veggies-delight aquaculture-delight ramadan-delight fungi-delight
   "new-years-delight-(a-farmers-delight-add-on)"
   aures-farmers-structures realm-rpg-treasure-balloons explorify
@@ -26,7 +26,8 @@ MODRINTH=(
 # rice-delight : distribution tierce coupee par l'auteur, packwiz ne peut pas le servir.
 # christmas-delight : aucun build 1.21.1 NeoForge (le jar CurseForge est en 1.20.1).
 # treetimber : repris depuis Modrinth, URL stable.
-CURSEFORGE=( gobber )
+# gobber, teyvats-delight : retires a la demande de Gordorak (2026-10-11).
+CURSEFORGE=( )
 
 ok=0; skip=0; fail=0
 for m in "${MODRINTH[@]}"; do
