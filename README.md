@@ -3,6 +3,7 @@
 Modpack Minecraft **1.21.1** / **NeoForge 21.1.257**, géré avec [packwiz](https://packwiz.infra.link/).
 Thème : automatisation Create, cuisine & agriculture, décoration, exploration de structures.
 **91 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
+Liste exhaustive avec les numéros de version : **[MODS.md](MODS.md)**.
 
 **Serveur** : `mcdeadmoon.omgserv.net:10023`
 **URL du pack** (lue par l'installeur packwiz) :
@@ -199,8 +200,11 @@ packwiz remove <nom>            # retirer un mod
 packwiz update --all            # mettre tout à jour
 packwiz refresh                 # reconstruire l'index (après édition manuelle)
 cd .. && ./build-server.sh      # regénérer le zip serveur
+python3 gen-modlist.py          # regénérer MODS.md
 ```
 
+- **Après toute modification du pack** : `packwiz refresh`, `./build-server.sh`,
+  `python3 gen-modlist.py`, puis commit. MODS.md est généré, ne jamais l'éditer à la main.
 - `add-mods.sh` : réinstalle la liste d'origine de zéro (idempotent).
   `add-mods-v2.sh` : la deuxième vague (décoration, Farmer's Delight addons, Iris/Sodium).
 - Un mod **client only** : ajouter `side = "client"` dans son `pack/mods/<mod>.pw.toml`, puis
@@ -215,6 +219,9 @@ cd .. && ./build-server.sh      # regénérer le zip serveur
   (`Found N manual downloads`). Rice Delight est dans ce cas, d'où son absence.
 
 ## Contenu
+
+Vue d'ensemble par thème. Pour la liste complète, avec le numéro de version de chaque mod, son côté
+(client seul ou client + serveur) et un lien vers sa page : **[MODS.md](MODS.md)**.
 
 ### Create & addons
 Create 6.0.10 · Create: Dragons Plus *(dépendance de Create)* · Create: Central Kitchen ·
