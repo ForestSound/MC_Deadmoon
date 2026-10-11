@@ -206,6 +206,39 @@ Le `:10023` fait partie de l'adresse, sans lui la connexion échoue.
 Tout le monde doit avoir **exactement la même version du pack** que le serveur, sinon Minecraft
 refuse avec « Outdated client » ou « Outdated server ».
 
+## Dépannage : « Timed out » à la connexion
+
+Symptôme côté serveur : l'authentification passe, puis `lost connection: Timed out` **exactement
+16 secondes plus tard**, à chaque tentative.
+
+Ce n'est ni le réseau ni un décalage de mods. C'est le client qui gèle pendant la synchronisation
+des recettes, et le serveur qui coupe au bout de ses 15 secondes d'attente — un délai câblé dans
+Minecraft, non configurable. Le log client le montre en creux :
+
+```
+[16:18:37] [Render thread] Create: Created 263 recipes which will be injected into the game
+[16:18:37] [Render thread] ... synchronisation des configs serveur ...
+           ← 15 secondes de silence : le fil de rendu est bloqué
+[16:18:52] [Render thread] [EMI] Recipes synchronized, waiting for tags to reload EMI...
+[16:18:52] Client disconnected with reason: Disconnected
+```
+
+Tout se passe sur le **Render thread** : tant qu'il indexe, il ne répond plus aux paquets de
+présence, et le serveur le considère perdu. Les mods sont bons, la connexion est bonne — la machine
+est juste trop lente pour tenir le délai.
+
+Dans l'ordre d'efficacité :
+
+1. **Mémoire à 6144 Mo minimum** dans Prism (*Modifier → Paramètres → Java*), 8192 si la machine a
+   16 Go. C'est le levier principal : sous-alloué, Java passe la synchronisation en ramassage de
+   mémoire. L'instance du dépôt est déjà réglée ainsi ; une instance montée à la main ne l'est pas.
+2. **Réessayer immédiatement après l'échec.** La deuxième tentative est souvent plus rapide, les
+   fichiers étant encore en cache disque.
+3. **Sur disque dur mécanique**, c'est la cause la plus fréquente et la plus difficile à contourner.
+4. **En dernier recours**, désactiver EMI dans la liste des mods de Prism : c'est l'indexation des
+   recettes qui coûte le plus cher. EMI est purement client, le serveur s'en moque. À retenir comme
+   test de diagnostic plus que comme solution.
+
 ## Déployer le serveur (OMGServ)
 
 Le serveur tourne en **NeoForge 21.1.257 / Minecraft 1.21.1** — même build que le client, c'est
