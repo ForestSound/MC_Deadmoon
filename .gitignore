@@ -4,6 +4,7 @@
 build/
 # ...sauf l'instance Prism prête à l'emploi (89 Ko), distribuée via le dépôt
 !dist/*.zip
+!dist/*.mrpack
 # Serveur de test local (jamais dans le dépôt)
 server-test/
 # Divers

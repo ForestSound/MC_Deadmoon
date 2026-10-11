@@ -20,6 +20,7 @@ Deux fichiers, et c'est tout :
 |---|---|---|
 | Le guide | 2 pages | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/docs/Guide-Minecraft-Deadmoon.pdf` |
 | L'instance Prism | 89 Ko | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/dist/Minecraft-Deadmoon-Prism.zip` |
+| Le `.mrpack` *(secours)* | 14 Ko | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/dist/Minecraft-Deadmoon-1.1.0.mrpack` |
 
 Le guide (`docs/Guide-Minecraft-Deadmoon.pdf`) couvre l'installation sous **Windows avec Prism
 Launcher** en 5 étapes, la connexion au serveur et le dépannage. Liens cliquables, texte seul.
@@ -73,8 +74,16 @@ mise à jour automatique. Il faut diffuser un zip, à refaire à chaque modifica
 
 Chaque mise à jour = un transfert de ~300 Mo et une réinstallation manuelle pour tout le monde.
 
-Le `.mrpack` (`build/Minecraft-Deadmoon-1.1.0.mrpack`, 2,5 Mo) est un troisième recours, importable
-dans Prism ou l'app Modrinth — mais pas dans le launcher CurseForge, et sans mise à jour automatique.
+### Variante : app Modrinth
+
+`dist/Minecraft-Deadmoon-1.1.0.mrpack` (14 Ko) s'importe dans l'**app Modrinth** ou dans Prism.
+Depuis que le pack est 100 % Modrinth, il ne contient plus que des références : 93 fichiers listés,
+aucun jar embarqué, d'où les 14 Ko.
+
+Pas de mise à jour automatique : à chaque modification du pack il faut regénérer et rediffuser le
+fichier (`cd pack && packwiz modrinth export -o ../dist/Minecraft-Deadmoon-1.1.0.mrpack`).
+Utile surtout comme **instance de test propre**, sans packwiz ni rien d'hérité d'une installation
+précédente, quand on cherche à isoler un problème.
 
 ## Shaders
 
@@ -240,12 +249,24 @@ Dans l'ordre d'efficacité :
    suffit d'y décocher EMI. Ne pas le désactiver depuis l'onglet *Mods* de Prism : packwiz le
    retéléchargerait au lancement suivant.
 
-**Mesuré sur un cas réel (2026-10-11)** : entre la fin de la synchronisation des configs et le
-message `[EMI] Recipes synchronized`, il s'écoule **15,8 secondes** sur la machine concernée —
-un Ryzen 7 3700X avec 16 Go alloués, donc pas une machine lente. En solo, la même étape prend le
-même temps, mais aucun minuteur ne court : c'est pour ça que le solo passe et le serveur non.
-EMI pèse à lui seul **9,5 s** de ce budget (`Reloaded EMI in 9581ms`). Le décocher suffit en général
-à repasser sous les 15 secondes.
+**Mesuré sur un cas réel (2026-10-11)**, même machine et même session, à une minute d'intervalle :
+
+| Chemin | `Created 263 recipes` → `[EMI] Recipes synchronized` |
+|---|---|
+| Monde solo | **0,28 s** |
+| Serveur | **15,9 s** |
+
+Un facteur 57 avec le même processeur et les mêmes mods déjà en mémoire. Aucun calcul ne varie
+comme ça : la seule différence entre les deux chemins est que les recettes arrivent **par le
+réseau**. Le profil est caractéristique — petits paquets qui passent (authentification, configs),
+gros transfert qui rampe. Causes probables : Wi-Fi avec pertes et retransmissions, VPN ou antivirus
+qui inspecte le trafic, ou débit réel inférieur à l'annoncé.
+
+**Le test qui tranche** : se connecter via le partage de connexion 4G d'un téléphone. Chemin réseau
+entièrement différent, deux minutes. Si ça passe, c'est la connexion ou le routeur.
+
+Les étapes 1 à 4 ci-dessus restent utiles pour un client réellement lent, mais elles ne corrigent
+pas un problème de débit.
 
 ## Déployer le serveur (OMGServ)
 
