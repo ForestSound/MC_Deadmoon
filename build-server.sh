@@ -1,6 +1,6 @@
 #!/bin/bash
 # Construit le dossier mods/ à envoyer sur l'hébergement (OMGServ) + un zip prêt à uploader.
-# Exclut les mods marqués side = "client" (EMI, Jade, Xaero's).
+# Exclut les mods marqués side = "client" (Jade, Iris, Xaero's...).
 set -u
 cd "$(dirname "$0")" || exit 1
 OUT="build/server/mods"

@@ -1,9 +1,9 @@
 # Liste des mods — Minecraft Deadmoon
 
-Pack **1.1.0** · Minecraft **1.21.1** · NeoForge **21.1.257** · généré le 2026-10-11.
+Pack **1.1.1** · Minecraft **1.21.1** · NeoForge **21.1.257** · généré le 2026-10-12.
 
-**90 mods** et **3 shaderpacks**. 8 mods sont purement client :
-le serveur en reçoit **82**.
+**91 mods** et **3 shaderpacks**. 7 mods sont purement client :
+le serveur en reçoit **84**.
 
 Ce fichier est généré par `gen-modlist.py` à partir des métadonnées packwiz de `pack/`.
 Ne pas l'éditer à la main : relancer `python3 gen-modlist.py` après chaque modification du pack.
@@ -37,7 +37,6 @@ Retour au [README](README.md).
 | [Diagonal Walls](https://modrinth.com/project/diagonal-walls) | `v21.1.2-1.21.1-NeoForge` | client + serveur | Modrinth |
 | [Diagonal Windows](https://modrinth.com/project/diagonal-windows) | `v21.1.1-1.21.1-NeoForge` | client + serveur | Modrinth |
 | [Dungeons and Taverns](https://modrinth.com/project/dungeons-and-taverns) | `v4.4.4+mod` | client + serveur | Modrinth |
-| [EMI](https://modrinth.com/project/emi) | `1.1.24+1.21.1+neoforge` | **client seul** | Modrinth |
 | [Expanded Delight](https://modrinth.com/project/expanded-delight) | `0.1.4-neoforge` | client + serveur | Modrinth |
 | [Explorer's Compass](https://modrinth.com/project/explorers-compass) | `1.21.1-3.4.0-neoforge` | client + serveur | Modrinth |
 | [Explorify](https://modrinth.com/project/explorify) | `v1.6.5` | client + serveur | Modrinth |
@@ -47,6 +46,7 @@ Retour au [README](README.md).
 | [Geckolib](https://modrinth.com/project/geckolib) | `4.9.3` | client + serveur | Modrinth |
 | [Iris Shaders](https://modrinth.com/project/iris) | `1.8.14-beta.1+1.21.1-neoforge` | **client seul** | Modrinth |
 | [Jade 🔍](https://modrinth.com/project/jade) | `15.10.6+neoforge` | **client seul** | Modrinth |
+| [Just Enough Items (JEI)](https://modrinth.com/project/jei) | `19.57.0.451` | client + serveur | Modrinth |
 | [Kazakh Delight (A Farmer's Delight Add-on)](https://modrinth.com/project/kazakh-delight) | `1.0.0` | client + serveur | Modrinth |
 | [L_Ender's Cataclysm](https://modrinth.com/project/l_enders-cataclysm) | `3.33` | client + serveur | Modrinth |
 | [[Let's Do] Bakery - Farm&Charm Compat](https://modrinth.com/project/lets-do-bakery-farmcharm-compat) | `2.1.8` | client + serveur | Modrinth |
@@ -64,6 +64,7 @@ Retour au [README](README.md).
 | [Macaw's Lights and Lamps](https://modrinth.com/project/macaws-lights-and-lamps) | `1.1.5` | client + serveur | Modrinth |
 | [Macaw's Paintings](https://modrinth.com/project/macaws-paintings) | `1.1.0` | client + serveur | Modrinth |
 | [Macaw's Stairs](https://modrinth.com/project/macaws-stairs) | `1.0.2` | client + serveur | Modrinth |
+| [MezzConfig](https://modrinth.com/project/mezzconfig) | `0.6.8` | client + serveur | Modrinth |
 | [Moonlight Lib](https://modrinth.com/project/moonlight) | `1.21.1-3.7.2` | client + serveur | Modrinth |
 | [Mowzie's Mobs](https://modrinth.com/project/mowzies-mobs) | `1.8.2` | client + serveur | Modrinth |
 | [Nature's Compass](https://modrinth.com/project/natures-compass) | `1.21.1-3.4.0-neoforge` | client + serveur | Modrinth |

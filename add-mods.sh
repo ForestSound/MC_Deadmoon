@@ -46,7 +46,7 @@ MODRINTH=(
   mowzies-mobs
   l_enders-cataclysm
   # --- Utilitaires (choix Gordorak) ---
-  emi
+  jei
   jade
   xaeros-minimap
   xaeros-world-map

@@ -121,11 +121,6 @@ hash = "b9244dca740d333c22f3425991fdd2fd40d3ae12384079a40a6fb7d4bca18a18"
 metafile = true
 
 [[files]]
-file = "mods/emi.pw.toml"
-hash = "3e41cb79b08092ace557713d6a24b65eff26c5658530b0c0d70e0db65794c9c2"
-metafile = true
-
-[[files]]
 file = "mods/expanded-delight.pw.toml"
 hash = "e0ad7cb6cf33d7958b7c9b7af321807190adf45ada89d65892fe2d437fe3024d"
 metafile = true
@@ -168,6 +163,11 @@ metafile = true
 [[files]]
 file = "mods/jade.pw.toml"
 hash = "652586d147ce5b3d57001a23412cfde018df40002f8a142cfbd4db4bc2a6c0fa"
+metafile = true
+
+[[files]]
+file = "mods/jei.pw.toml"
+hash = "8bc018284b753276f8e3510101852809bcccdad31a7ae17847df210c71a2c512"
 metafile = true
 
 [[files]]
@@ -253,6 +253,11 @@ metafile = true
 [[files]]
 file = "mods/macaws-stairs.pw.toml"
 hash = "abae13cbccdb8789a929cc4d2f9fc38f93ef6bb9082a87f931fcef1b1695cbe6"
+metafile = true
+
+[[files]]
+file = "mods/mezzconfig.pw.toml"
+hash = "cf5d87f046590b99d92096a79f6ea2f456290ba5d423c256f06674d2d10a1592"
 metafile = true
 
 [[files]]

@@ -2,7 +2,7 @@
 
 Modpack Minecraft **1.21.1** / **NeoForge 21.1.257**, géré avec [packwiz](https://packwiz.infra.link/).
 Thème : automatisation Create, cuisine & agriculture, décoration, exploration de structures.
-**90 mods + 3 shaderpacks.** Version du pack : **1.1.0**.
+**91 mods + 3 shaderpacks.** Version du pack : **1.1.1**.
 Liste exhaustive avec les numéros de version : **[MODS.md](MODS.md)**.
 
 **Serveur** : `mcdeadmoon.omgserv.net:10023`
@@ -20,7 +20,7 @@ Deux fichiers, et c'est tout :
 |---|---|---|
 | Le guide | 2 pages | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/docs/Guide-Minecraft-Deadmoon.pdf` |
 | L'instance Prism | 89 Ko | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/dist/Minecraft-Deadmoon-Prism.zip` |
-| Le `.mrpack` *(secours)* | 14 Ko | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/dist/Minecraft-Deadmoon-1.1.0.mrpack` |
+| Le `.mrpack` *(secours)* | 14 Ko | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/dist/Minecraft-Deadmoon-1.1.1.mrpack` |
 
 Le guide (`docs/Guide-Minecraft-Deadmoon.pdf`) couvre l'installation sous **Windows avec Prism
 Launcher** en 5 étapes, la connexion au serveur et le dépannage. Liens cliquables, texte seul.
@@ -76,12 +76,12 @@ Chaque mise à jour = un transfert de ~300 Mo et une réinstallation manuelle po
 
 ### Variante : app Modrinth
 
-`dist/Minecraft-Deadmoon-1.1.0.mrpack` (14 Ko) s'importe dans l'**app Modrinth** ou dans Prism.
-Depuis que le pack est 100 % Modrinth, il ne contient plus que des références : 93 fichiers listés,
+`dist/Minecraft-Deadmoon-1.1.1.mrpack` (14 Ko) s'importe dans l'**app Modrinth** ou dans Prism.
+Depuis que le pack est 100 % Modrinth, il ne contient plus que des références : 94 fichiers listés,
 aucun jar embarqué, d'où les 14 Ko.
 
 Pas de mise à jour automatique : à chaque modification du pack il faut regénérer et rediffuser le
-fichier (`cd pack && packwiz modrinth export -o ../dist/Minecraft-Deadmoon-1.1.0.mrpack`).
+fichier (`cd pack && packwiz modrinth export -o ../dist/Minecraft-Deadmoon-1.1.1.mrpack`).
 Utile surtout comme **instance de test propre**, sans packwiz ni rien d'hérité d'une installation
 précédente, quand on cherche à isoler un problème.
 
@@ -244,12 +244,12 @@ Dans l'ordre d'efficacité :
 2. **Réessayer immédiatement après l'échec.** La deuxième tentative est souvent plus rapide, les
    fichiers étant encore en cache disque.
 3. **Sur disque dur mécanique**, c'est la cause la plus fréquente et la plus difficile à contourner.
-4. **Décocher EMI** : il est déclaré **optionnel** dans le pack depuis la 1.1.0, justement pour ça.
-   Au premier lancement, packwiz-installer affiche une fenêtre de choix des mods optionnels — il
-   suffit d'y décocher EMI. Ne pas le désactiver depuis l'onglet *Mods* de Prism : packwiz le
-   retéléchargerait au lancement suivant.
 
-**Mesuré sur un cas réel (2026-10-11)**, même machine et même session, à une minute d'intervalle :
+Le pack ne contient plus aucun mod optionnel depuis la 1.1.1 : EMI, qui l'était, a été remplacé par
+JEI, actif chez tout le monde. packwiz-installer n'affiche donc plus de fenêtre de choix au lancement.
+Le log ci-dessus date de l'époque d'EMI ; avec JEI, la ligne équivalente est celle de JEI.
+
+**Mesuré sur un cas réel (2026-10-11, encore avec EMI)**, même machine et même session, à une minute d'intervalle :
 
 | Chemin | `Created 263 recipes` → `[EMI] Recipes synchronized` |
 |---|---|
@@ -265,7 +265,7 @@ qui inspecte le trafic, ou débit réel inférieur à l'annoncé.
 **Le test qui tranche** : se connecter via le partage de connexion 4G d'un téléphone. Chemin réseau
 entièrement différent, deux minutes. Si ça passe, c'est la connexion ou le routeur.
 
-Les étapes 1 à 4 ci-dessus restent utiles pour un client réellement lent, mais elles ne corrigent
+Les étapes 1 à 3 ci-dessus restent utiles pour un client réellement lent, mais elles ne corrigent
 pas un problème de débit.
 
 ## Déployer le serveur (OMGServ)
@@ -283,7 +283,7 @@ crée vide à son premier démarrage.
 racine du serveur
 ├── libraries/
 ├── logs/
-├── mods/              ← les 82 jars ici, en vrac
+├── mods/              ← les 84 jars ici, en vrac
 ├── world/
 ├── eula.txt
 └── server.properties  ← ce fichier identifie la racine
@@ -295,11 +295,11 @@ Dans l'ordre :
 2. **Supprimer `world/`** (ainsi que `world_nether/` et `world_the_end/` s'ils existent). Terralith
    remplace la génération du terrain : sur un monde déjà généré en vanilla, on obtient une zone de
    spawn vanilla, des biomes Terralith autour, et des murs de terrain à la frontière.
-3. **Vider `mods/`**, puis envoyer les **82 jars** de `build/server-mods.zip` (292 Mo décompressés).
+3. **Vider `mods/`**, puis envoyer les **84 jars** de `build/server-mods.zip` (292 Mo décompressés).
    Les jars vont **directement** dans `mods/`, sans sous-dossier : extraire le zip depuis la racine,
    pas depuis l'intérieur de `mods/`, sinon on obtient `mods/mods/` et le serveur démarre sans aucun
    mod — sans erreur visible, jusqu'à ce que tout le monde soit rejeté en « Outdated client ».
-4. **Mémoire : 6 Go minimum** (8 Go confortable à 90 mods). Dans `server.properties` :
+4. **Mémoire : 6 Go minimum** (8 Go confortable à 91 mods). Dans `server.properties` :
    `view-distance=8` et `simulation-distance=6`. Au-delà, le serveur s'écroule dès que trois
    personnes s'éloignent.
 5. **Démarrer et surveiller la console** jusqu'à `Done (XXXs)! For help, type "help"`. Compter 3 à
@@ -307,7 +307,7 @@ Dans l'ordre :
    En cas de plantage, la console nomme le mod fautif.
 6. **Tester soi-même** avant d'annoncer l'adresse à la guilde.
 
-**82 jars côté serveur contre 90 côté client, c'est normal** : EMI, Jade, Iris, Sodium, Athena,
+**84 jars côté serveur contre 91 côté client, c'est normal** : Jade, Iris, Sodium, Athena,
 Nemo's Inventory Sorting et les deux Xaero's sont purement client, `build-server.sh` les exclut (ils
 portent `side = "client"` dans leur `.pw.toml`). Les shaderpacks sont exclus pour la même raison.
 
@@ -429,10 +429,10 @@ Nemo's Inventory Sorting *(client)*
 Mowzie's Mobs · L_Ender's Cataclysm
 
 ### Rendu & utilitaires
-Iris Shaders *(client)* · Sodium *(client)* · EMI *(client)* · Jade *(client)*
+Iris Shaders *(client)* · Sodium *(client)* · JEI *(client + serveur)* · Jade *(client)*
 
 ### Écartés volontairement
-**JEI** — EMI remplit le même rôle, et les deux ensemble donnent deux interfaces de recettes
+**EMI** — remplacé par JEI en 1.1.1 ; les deux ensemble donneraient deux interfaces de recettes
 superposées. **Gobber** et **Teyvat's Delight** — retirés à la demande de Gordorak.
 **Croptopia** — trop de redondance avec Farmer's Delight et ses extensions ; EpheroLib, qui
 n'existait que pour lui, est parti avec. **Biomes O' Plenty** — Terralith est seul maître de la
@@ -443,5 +443,5 @@ n'avait besoin dans ce pack.
 
 ### Dépendances tirées automatiquement
 Architectury API · Balm · Curios API · Accessories · Athena *(client)* · EpheroLib · Geckolib ·
-Lionfish-API *(Cataclysm)* · Lithostitched *(Terralith 2.6.2)* · Moonlight Lib · owo-lib · Puzzles Lib ·
+Lionfish-API *(Cataclysm)* · Lithostitched *(Terralith 2.6.2)* · MezzConfig *(JEI)* · Moonlight Lib · owo-lib · Puzzles Lib ·
 Resourceful Lib · ShatterLib/OctoLib *(Relics)* · Sophisticated Core
