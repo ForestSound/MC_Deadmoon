@@ -286,6 +286,11 @@ hash = "ee23307fd571a46c0846c14c7a4d08947af7b11709abeaec67415bfebb75e877"
 metafile = true
 
 [[files]]
+file = "mods/notimeout.pw.toml"
+hash = "0ebcae98636a6bcf9a4c3e659aa7b0ddde1bfdff9c9a8790634df23ae9c4c8d3"
+metafile = true
+
+[[files]]
 file = "mods/open-parties-and-claims.pw.toml"
 hash = "d22d3dad65c22acb508823667ca42d751d919753922a18fae50ccf656fa07a43"
 metafile = true

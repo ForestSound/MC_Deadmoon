@@ -1,9 +1,9 @@
 # Liste des mods — Minecraft Deadmoon
 
-Pack **1.1.1** · Minecraft **1.21.1** · NeoForge **21.1.257** · généré le 2026-10-12.
+Pack **1.1.2** · Minecraft **1.21.1** · NeoForge **21.1.257** · généré le 2026-10-13.
 
-**91 mods** et **3 shaderpacks**. 7 mods sont purement client :
-le serveur en reçoit **84**.
+**92 mods** et **3 shaderpacks**. 7 mods sont purement client :
+le serveur en reçoit **85**.
 
 Ce fichier est généré par `gen-modlist.py` à partir des métadonnées packwiz de `pack/`.
 Ne pas l'éditer à la main : relancer `python3 gen-modlist.py` après chaque modification du pack.
@@ -69,7 +69,8 @@ Retour au [README](README.md).
 | [Mowzie's Mobs](https://modrinth.com/project/mowzies-mobs) | `1.8.2` | client + serveur | Modrinth |
 | [Nature's Compass](https://modrinth.com/project/natures-compass) | `1.21.1-3.4.0-neoforge` | client + serveur | Modrinth |
 | [Nemo's Inventory Sorting](https://modrinth.com/project/nemos-inventory-sorting) | `1.21.1-1.8.2.1` | **client seul** | Modrinth |
-| [New Year's Delight (A Farmer's Delight Add-on)](https://modrinth.com/project/new-years-delight-(a-farmers-delight-add-on)) | `nydelight-1.21.1-1.1.0` | client + serveur | Modrinth |
+| [New Year's Delight (A Farmer's Delight Add-on)](https://modrinth.com/project/new-years-delight-a-farmers-delight-add-on) | `nydelight-1.21.1-1.1.0` | client + serveur | Modrinth |
+| [NoTimeOut](https://modrinth.com/project/notimeout) | `1.21.1-1.0.0` | serveur seul | Modrinth |
 | [Open Parties and Claims](https://modrinth.com/project/open-parties-and-claims) | `neoforge-1.21.1-0.32.7` | client + serveur | Modrinth |
 | [oωo (owo-lib)](https://modrinth.com/project/owo-lib) | `0.12.15.5-beta.1+1.21` | client + serveur | Modrinth |
 | [Puzzles Lib](https://modrinth.com/project/puzzles-lib) | `21.1.63` | client + serveur | Modrinth |

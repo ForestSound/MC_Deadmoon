@@ -1,0 +1,12 @@
+# Minecraft Deadmoon - delai de connexion au serveur.
+# Le mod genere ce fichier tout seul au premier demarrage avec la valeur 240.
+# Ne l'uploade que si tu veux une autre valeur. Bornes: 1 a 30000.
+#
+# Vanilla coupe une connexion au bout de 15 s. Un client sur une liaison lente
+# met davantage a recevoir les recettes et les registres du pack : il etait
+# deconnecte en "Timed out" avant d'avoir fini.
+
+[general]
+	#General mod settings
+	#Range: 1 ~ 30000
+	timeoutInSeconds = 240

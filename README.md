@@ -20,7 +20,7 @@ Deux fichiers, et c'est tout :
 |---|---|---|
 | Le guide | 2 pages | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/docs/Guide-Minecraft-Deadmoon.pdf` |
 | L'instance Prism | 89 Ko | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/dist/Minecraft-Deadmoon-Prism.zip` |
-| Le `.mrpack` *(secours)* | 14 Ko | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/dist/Minecraft-Deadmoon-1.1.1.mrpack` |
+| Le `.mrpack` *(secours)* | 14 Ko | `https://raw.githubusercontent.com/ForestSound/MC_Deadmoon/main/dist/Minecraft-Deadmoon-1.1.2.mrpack` |
 
 Le guide (`docs/Guide-Minecraft-Deadmoon.pdf`) couvre l'installation sous **Windows avec Prism
 Launcher** en 5 étapes, la connexion au serveur et le dépannage. Liens cliquables, texte seul.
@@ -76,12 +76,12 @@ Chaque mise à jour = un transfert de ~300 Mo et une réinstallation manuelle po
 
 ### Variante : app Modrinth
 
-`dist/Minecraft-Deadmoon-1.1.1.mrpack` (14 Ko) s'importe dans l'**app Modrinth** ou dans Prism.
+`dist/Minecraft-Deadmoon-1.1.2.mrpack` (14 Ko) s'importe dans l'**app Modrinth** ou dans Prism.
 Depuis que le pack est 100 % Modrinth, il ne contient plus que des références : 94 fichiers listés,
 aucun jar embarqué, d'où les 14 Ko.
 
 Pas de mise à jour automatique : à chaque modification du pack il faut regénérer et rediffuser le
-fichier (`cd pack && packwiz modrinth export -o ../dist/Minecraft-Deadmoon-1.1.1.mrpack`).
+fichier (`cd pack && packwiz modrinth export -o ../dist/Minecraft-Deadmoon-1.1.2.mrpack`).
 Utile surtout comme **instance de test propre**, sans packwiz ni rien d'hérité d'une installation
 précédente, quand on cherche à isoler un problème.
 
@@ -220,53 +220,76 @@ refuse avec « Outdated client » ou « Outdated server ».
 Symptôme côté serveur : l'authentification passe, puis `lost connection: Timed out` **exactement
 16 secondes plus tard**, à chaque tentative.
 
-Ce n'est ni le réseau ni un décalage de mods. C'est le client qui gèle pendant la synchronisation
-des recettes, et le serveur qui coupe au bout de ses 15 secondes d'attente — un délai câblé dans
-Minecraft, non configurable. Le log client le montre en creux :
+### La cause
+
+Pendant la phase de configuration, le serveur envoie au client l'intégralité des registres et des
+recettes du pack. Tant que le client traite ce transfert, il ne répond plus aux paquets de présence.
+Minecraft coupe au bout de **15 secondes** — un délai câblé dans `ServerCommonPacketListenerImpl`,
+que rien dans `server.properties` ne permet de changer.
+
+Le log client le montre en creux :
 
 ```
 [16:18:37] [Render thread] Create: Created 263 recipes which will be injected into the game
 [16:18:37] [Render thread] ... synchronisation des configs serveur ...
-           ← 15 secondes de silence : le fil de rendu est bloqué
+           ← 15 secondes de silence
 [16:18:52] [Render thread] [EMI] Recipes synchronized, waiting for tags to reload EMI...
 [16:18:52] Client disconnected with reason: Disconnected
 ```
 
-Tout se passe sur le **Render thread** : tant qu'il indexe, il ne répond plus aux paquets de
-présence, et le serveur le considère perdu. Les mods sont bons, la connexion est bonne — la machine
-est juste trop lente pour tenir le délai.
-
-Dans l'ordre d'efficacité :
-
-1. **Mémoire à 6144 Mo minimum** dans Prism (*Modifier → Paramètres → Java*), 8192 si la machine a
-   16 Go. C'est le levier principal : sous-alloué, Java passe la synchronisation en ramassage de
-   mémoire. L'instance du dépôt est déjà réglée ainsi ; une instance montée à la main ne l'est pas.
-2. **Réessayer immédiatement après l'échec.** La deuxième tentative est souvent plus rapide, les
-   fichiers étant encore en cache disque.
-3. **Sur disque dur mécanique**, c'est la cause la plus fréquente et la plus difficile à contourner.
-
-Le pack ne contient plus aucun mod optionnel depuis la 1.1.1 : EMI, qui l'était, a été remplacé par
-JEI, actif chez tout le monde. packwiz-installer n'affiche donc plus de fenêtre de choix au lancement.
-Le log ci-dessus date de l'époque d'EMI ; avec JEI, la ligne équivalente est celle de JEI.
-
-**Mesuré sur un cas réel (2026-10-11, encore avec EMI)**, même machine et même session, à une minute d'intervalle :
+**Mesuré sur un cas réel (2026-10-11, encore à l'époque d'EMI)**, même machine et même session, à
+une minute d'intervalle :
 
 | Chemin | `Created 263 recipes` → `[EMI] Recipes synchronized` |
 |---|---|
 | Monde solo | **0,28 s** |
 | Serveur | **15,9 s** |
 
-Un facteur 57 avec le même processeur et les mêmes mods déjà en mémoire. Aucun calcul ne varie
-comme ça : la seule différence entre les deux chemins est que les recettes arrivent **par le
-réseau**. Le profil est caractéristique — petits paquets qui passent (authentification, configs),
-gros transfert qui rampe. Causes probables : Wi-Fi avec pertes et retransmissions, VPN ou antivirus
-qui inspecte le trafic, ou débit réel inférieur à l'annoncé.
+Un facteur 57 avec le même processeur et les mêmes mods déjà en mémoire. La seule différence entre
+les deux chemins est que les recettes arrivent **par le réseau**. 15,9 s contre un budget de 15 s :
+la connexion échouait de peu, systématiquement.
 
-**Le test qui tranche** : se connecter via le partage de connexion 4G d'un téléphone. Chemin réseau
-entièrement différent, deux minutes. Si ça passe, c'est la connexion ou le routeur.
+Confirmé ensuite par élimination (2026-10-13) : même échec avec le pack reconstruit sous **Prism**,
+sous l'**app Modrinth** et sous **CurseForge**, antivirus et pare-feu désactivés. Ce n'est donc ni
+le pack, ni le launcher, ni la machine.
 
-Les étapes 1 à 3 ci-dessus restent utiles pour un client réellement lent, mais elles ne corrigent
-pas un problème de débit.
+### La correction : NoTimeOut, côté serveur
+
+Le pack embarque [NoTimeOut](https://modrinth.com/mod/notimeout) depuis la **1.1.2**, marqué
+`side = "server"`. Il porte le délai de **15 s à 240 s**, sa valeur par défaut.
+
+Trois mixins, vérifiés dans le jar :
+
+| Mixin | Ce qu'il remplace |
+|---|---|
+| `ServerCommonPacketListenerKeepAliveMixin` | le keep-alive de 15 s — la coupure observée |
+| `ChannelInitializerMixin` | le `ReadTimeoutHandler` netty (30 s) |
+| `ServerLoginPacketListenerMixin` | le timeout de login vanilla (`slow_login`) |
+
+**Personne dans la guilde n'a rien à installer.** Le mod est déclaré
+`server_side = required, client_side = optional` et `displayTest = "IGNORE_SERVER_VERSION"` : les
+clients sans le mod se connectent normalement. `side = "server"` fait que packwiz ne le propose
+même pas aux joueuses et joueurs.
+
+Le fichier `config/notimeout-common.toml` est créé au premier démarrage, avec `timeoutInSeconds = 240`
+(bornes 1 à 30000). `serveur-config/notimeout-common.toml` en garde une copie de référence ; ne
+l'uploader que pour changer la valeur.
+
+Contrepartie assumée : un client qui plante réellement pendant la connexion occupe un emplacement
+pendant 4 minutes au lieu de 15 secondes.
+
+### Si ça coince encore
+
+1. **Mémoire à 6144 Mo minimum** dans Prism (*Modifier → Paramètres → Java*), 8192 si la machine a
+   16 Go. L'instance du dépôt est déjà réglée ainsi ; une instance montée à la main ne l'est pas.
+2. **Réessayer immédiatement après l'échec** : les fichiers sont encore en cache disque.
+3. **Sur disque dur mécanique**, le chargement reste lent — mais 240 s laissent une marge très large.
+4. **Tester via le partage de connexion 4G d'un téléphone** : chemin réseau entièrement différent,
+   deux minutes. Diagnostique un débit ou un routeur en cause — utile à savoir même maintenant que
+   le délai est relevé.
+
+Depuis la 1.1.1, le pack ne contient plus aucun mod optionnel : EMI, qui l'était, a été remplacé par
+JEI, actif chez tout le monde. packwiz-installer n'affiche donc plus de fenêtre de choix au lancement.
 
 ## Déployer le serveur (OMGServ)
 
@@ -342,6 +365,11 @@ Ensuite, sur le panel OMGServ :
    NeoForge refuserait de démarrer sur un doublon de modid.
 5. **Redémarrer** et attendre `Done (XXXs)!` dans la console.
 6. **Se connecter soi-même** pour vérifier, puis annoncer que c'est ouvert.
+
+> **Cas particulier — ajout d'un seul mod.** Quand la mise à jour n'ajoute qu'un jar et n'en
+> retire aucun, le vidage complet de `mods/` est inutile : envoyer le seul jar nouveau suffit,
+> puisqu'aucun modid n'est en double. C'est le cas de NoTimeOut en 1.1.2
+> (`build/server/mods/notimeout-1.21.1-1.0.0.jar`). Arrêt, upload, redémarrage.
 
 Si quelqu'un se fait rejeter en « Outdated server » après ça, c'est que le serveur n'a pas la même
 liste : vérifier que `mods/` contient bien le même nombre de jars que `build/server/mods/`.
@@ -429,7 +457,9 @@ Nemo's Inventory Sorting *(client)*
 Mowzie's Mobs · L_Ender's Cataclysm
 
 ### Rendu & utilitaires
-Iris Shaders *(client)* · Sodium *(client)* · JEI *(client + serveur)* · Jade *(client)*
+Iris Shaders *(client)* · Sodium *(client)* · JEI *(client + serveur)* · Jade *(client)* ·
+NoTimeOut *(serveur)* — relève le délai de connexion de 15 s à 240 s, voir
+[Dépannage](#dépannage--timed-out-à-la-connexion)
 
 ### Écartés volontairement
 **EMI** — remplacé par JEI en 1.1.1 ; les deux ensemble donneraient deux interfaces de recettes
